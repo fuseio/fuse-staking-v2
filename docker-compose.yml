@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: Fuse_Staking_V2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
