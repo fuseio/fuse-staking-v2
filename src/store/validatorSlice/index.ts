@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { AppState } from '../rootReducer'
 import { fetchValidatorData, getJailedValidators, getStake, getTotalStakeAmount, getValidators } from '../../utils/contractInteract'
 import Validators from '../../validators/validators.json'
-import { fetchNodeByAddress, fetchTokenPrice } from '../../utils/api'
+import { fetchFuseTokenData, fetchNodeByAddress, fetchTokenPrice } from '../../utils/api'
 
 export interface ValidatorType {
     address: string
@@ -33,6 +33,7 @@ export interface ValidatorStateType {
     errorMessage: string
     totalDelegators: number
     fuseTokenUSDPrice: number
+    fuseTokenCirculatingSupply: number
 }
 
 const INIT_STATE: ValidatorStateType = {
@@ -46,7 +47,8 @@ const INIT_STATE: ValidatorStateType = {
     isError: false,
     errorMessage: '',
     isBalanceLoading: false,
-    fuseTokenUSDPrice: 0
+    fuseTokenUSDPrice: 0,
+    fuseTokenCirculatingSupply: 0
 }
 
 export const fetchValidators = createAsyncThunk(
@@ -58,7 +60,9 @@ export const fetchValidators = createAsyncThunk(
                     const jailedValidators = await getJailedValidators()
                     validators = validators.concat(jailedValidators)
                     const price: number = await fetchTokenPrice()
-                    resolve({ totalStakeAmount, validators, price })
+                    const tokenData = await fetchFuseTokenData()
+                    const fuseTokenCirculatingSupply = tokenData["total"]
+                    resolve({ totalStakeAmount, validators, price, fuseTokenCirculatingSupply })
                 }).catch((error) => {
                     reject(error)
                 })
@@ -149,6 +153,7 @@ const validatorSlice = createSlice({
             state.totalStakeAmount = payload.totalStakeAmount
             state.validators = payload.validators
             state.fuseTokenUSDPrice = payload.price
+            state.fuseTokenCirculatingSupply = payload.fuseTokenCirculatingSupply
         },
         [fetchValidators.rejected.toString()]: (state, { error }) => {
             state.isLoading = false

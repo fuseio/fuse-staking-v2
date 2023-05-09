@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 import fuseToken from "../../assets/fuseToken.svg";
 import Button from "../commons/Button";
-import { ValidatorType, fetchSelfStake } from "../../store/validatorSlice";
+import {
+  ValidatorType,
+  fetchSelfStake,
+  selectValidatorMetadata,
+  selectValidatorSlice,
+} from "../../store/validatorSlice";
 import { useConnectWallet } from "@web3-onboard/react";
 import { delegate, withdraw } from "../../utils/contractInteract";
-import { useAppDispatch } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../store/store";
 type StakeCardProps = {
   className?: string;
   validator: ValidatorType | undefined;
@@ -23,6 +28,50 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
       setBalance(wallet?.accounts[0].balance["Fuse"]);
     }
   }, [wallet?.accounts[0].balance]);
+
+  const getPredictedReward = (amt: number) => {
+    if (validator) {
+      const reward =
+        validatorSlice.fuseTokenCirculatingSupply *
+        0.05 *
+        (amt / parseFloat(validatorSlice.totalStakeAmount)) *
+        (1 - parseFloat(validator.fee) / 100);
+      return reward;
+    }
+    return 0;
+  };
+
+  const getPredictedIncrease = () => {
+    if (validator) {
+      const reward =
+        (validatorSlice.fuseTokenCirculatingSupply /
+          parseFloat(validatorSlice.totalStakeAmount)) *
+        0.05 *
+        (1 - parseFloat(validator.fee) / 100);
+      return reward;
+    }
+    return 0;
+  };
+
+  const [reward, setReward] = React.useState<number>(0.0);
+
+  useEffect(() => {
+    if (mode === 0) {
+      if (validator?.selfStakeAmount)
+        setReward(
+          getPredictedReward(parseFloat(validator.selfStakeAmount) + amount)
+        );
+      else setReward(getPredictedReward(amount));
+    } else {
+      if (validator?.selfStakeAmount)
+        setReward(
+          getPredictedReward(parseFloat(validator.selfStakeAmount) - amount)
+        );
+      else setReward(getPredictedReward(amount));
+    }
+  }, [amount]);
+
+  const validatorSlice = useAppSelector(selectValidatorSlice);
   return (
     <div className="w-full bg-white rounded-xl p-4 flex flex-col">
       <div className="flex">
@@ -155,27 +204,12 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
 
         {validator ? (
           <p className="text-sm font-semibold text-[#071927]">
-            {mode === 0
-              ? validator.selfStakeAmount
-                ? new Intl.NumberFormat().format(
-                    ((amount + parseFloat(validator.selfStakeAmount)) *
-                      parseFloat(validator?.fee)) /
-                      100
-                  )
-                : new Intl.NumberFormat().format(
-                    (amount * parseFloat(validator.fee)) / 100
-                  )
-              : validator.selfStakeAmount
-              ? new Intl.NumberFormat().format(
-                  ((parseFloat(validator.selfStakeAmount) - amount) *
-                    parseFloat(validator?.fee)) /
-                    100
-                )
-              : new Intl.NumberFormat().format(
-                  (amount * parseFloat(validator.fee)) / 100
-                )}{" "}
-            FUSE
-            <span className="text-[#66E070]"> (+{validator?.fee}%)</span>
+            {new Intl.NumberFormat().format(reward)} FUSE
+            <span className="text-[#66E070]">
+              {" (+"}
+              {(getPredictedIncrease() * 100).toFixed(1)}
+              {"%)"}
+            </span>
           </p>
         ) : (
           <span className="ms-2 px-11 py-1 bg-dark-gray rounded-lg animate-pulse" />

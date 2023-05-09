@@ -16,6 +16,9 @@ export const fetchDelegatedNodes = () =>
 export const fetchDelegatedNodesSorted = () =>
     axios.get(`${CONFIG.bootApi}/delegatedNodes_sorted`).then(response => response.data)
 
+export const fetchFuseTokenData = () =>
+    axios.get(`${CONFIG.bootApi}/stats/circulating`).then(response => response.data)
+
 export const fetchTokenPrice = async () => {
     const response = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=fuse-network-token&vs_currencies=usd`)
     return response.data['fuse-network-token'].usd
