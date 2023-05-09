@@ -40,6 +40,7 @@ const ValidatorsPane = ({
                 isLoading
                 key={i}
                 address=""
+                firstSeen=""
               />
             );
           })}
@@ -60,6 +61,7 @@ const ValidatorsPane = ({
               image={validator.image}
               address={validator.address}
               key={validator.address}
+              firstSeen={validator.firstSeen as string}
             />
           );
         })}

@@ -51,8 +51,8 @@ const Home = () => {
 
   const [filter, setFilter] = useState({
     search: "",
-    stateFilter: 0,
-    statusFilter: 0,
+    stateFilter: 1,
+    statusFilter: 1,
   });
 
   const setSearch = (search: string) => {
@@ -98,7 +98,7 @@ const Home = () => {
 
   useEffect(() => {
     filterValidators();
-  }, [filter]);
+  }, [filter, validatorSlice.validatorMetadata]);
 
   return (
     <div className="w-full bg-light-gray flex justify-center">
@@ -192,6 +192,7 @@ const Home = () => {
             onClick={(i, _) => {
               setStateFilter(i);
             }}
+            select={1}
           />
           <FilterBar
             className="w-2/5"
@@ -202,6 +203,7 @@ const Home = () => {
             onClick={(i, _) => {
               setStatusFilter(i);
             }}
+            select={1}
           />
         </div>
         <ValidatorsPane

@@ -98,7 +98,7 @@ const Stake = () => {
                   {validator ? (
                     <span className="ms-1 font-semibold">
                       {new Date(
-                        validator.firstSeen as string
+                        parseInt(validator.firstSeen as string) * 1000
                       ).toLocaleDateString()}
                     </span>
                   ) : (

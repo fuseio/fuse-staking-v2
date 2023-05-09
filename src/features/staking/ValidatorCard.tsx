@@ -14,6 +14,7 @@ type ValidatorCardProps = {
   isLoading?: boolean;
   image?: string;
   address: string;
+  firstSeen: string;
 };
 
 const ValidatorCard = ({
@@ -27,6 +28,7 @@ const ValidatorCard = ({
   isLoading = false,
   image = "",
   address,
+  firstSeen,
 }: ValidatorCardProps) => {
   const navigate = useNavigate();
   return (
@@ -65,8 +67,12 @@ const ValidatorCard = ({
           <p className="font-normal text-sm text-text-gray">
             {isLoading ? (
               <span className="px-16 py-[1px] bg-dark-gray rounded-md animate-pulse"></span>
+            ) : firstSeen ? (
+              `Validating Since ${new Date(
+                parseInt(firstSeen as string) * 1000
+              ).toLocaleDateString()}`
             ) : (
-              "Validating Since 20/11/22"
+              ""
             )}
           </p>
         </span>

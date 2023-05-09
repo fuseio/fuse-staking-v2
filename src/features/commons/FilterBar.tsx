@@ -7,6 +7,7 @@ type FilterBarProps = {
   states: string[];
   background?: string[];
   text?: string[];
+  select?: number;
 };
 
 const FilterBar = ({
@@ -16,8 +17,9 @@ const FilterBar = ({
   states,
   background = [],
   text = [],
+  select = 0,
 }: FilterBarProps) => {
-  const [selected, setSelected] = React.useState(0);
+  const [selected, setSelected] = React.useState(select);
   const handleClick = (i: number) => {
     setSelected(i);
     onClick(i, states[i]);
@@ -36,7 +38,9 @@ const FilterBar = ({
                 style={
                   selected === index
                     ? {
-                        background: background[index] ? background[index] : "#E7E7E7",
+                        background: background[index]
+                          ? background[index]
+                          : "#E7E7E7",
                         color: text[index] ? text[index] : "#000000",
                       }
                     : {}
@@ -59,7 +63,9 @@ const FilterBar = ({
                 style={
                   selected === index
                     ? {
-                        background: background[index] ? background[index] : "#E7E7E7",
+                        background: background[index]
+                          ? background[index]
+                          : "#E7E7E7",
                         color: text[index] ? text[index] : "#000000",
                       }
                     : {}
@@ -81,7 +87,9 @@ const FilterBar = ({
               style={
                 selected === index
                   ? {
-                      background: background[index] ? background[index] : "#E7E7E7",
+                      background: background[index]
+                        ? background[index]
+                        : "#E7E7E7",
                       color: text[index] ? text[index] : "#000000",
                     }
                   : {}

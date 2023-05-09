@@ -55,6 +55,8 @@ export const fetchValidators = createAsyncThunk(
         return new Promise<any>(async (resolve, reject) => {
             getTotalStakeAmount().then((totalStakeAmount) => {
                 getValidators().then(async (validators) => {
+                    const jailedValidators = await getJailedValidators()
+                    validators = validators.concat(jailedValidators)
                     const price: number = await fetchTokenPrice()
                     resolve({ totalStakeAmount, validators, price })
                 }).catch((error) => {
@@ -74,24 +76,36 @@ export const fetchValidatorMetadata = createAsyncThunk(
             const jailedValidators = await getJailedValidators()
             const validatorMap = new Map(Object.entries(Validators));
             Promise.all(validators.map(async (validator) => {
+                const status = jailedValidators.includes(validator.toLowerCase()) ? 'inactive' : 'active'
                 const metadata = await fetchValidatorData(validator)
-                let apiMetadata = await fetchNodeByAddress(validator)
-                apiMetadata = apiMetadata["Node"]
                 const validatorData = validatorMap.get(validator)
                 totalDelegators += parseInt(metadata.delegatorsLength)
-                validatorMetadata.push({
-                    ...metadata,
-                    address: validator,
-                    name: validatorData?.name,
-                    website: validatorData?.website,
-                    image: validatorData?.image,
-                    firstSeen: apiMetadata?.firstSeen ? apiMetadata?.firstSeen : undefined,
-                    forDelegation: apiMetadata?.forDelegation ? apiMetadata?.forDelegation : undefined,
-                    totalValidated: apiMetadata?.totalValidated ? apiMetadata?.totalValidated : undefined,
-                    uptime: apiMetadata?.upTime ? apiMetadata?.upTime : undefined,
-                    description: apiMetadata?.description ? apiMetadata?.description : undefined,
-                    status: jailedValidators.includes(validator.toLowerCase()) ? 'inactive' : 'active'
-                })
+                if (status === 'inactive') {
+                    validatorMetadata.push({
+                        ...metadata,
+                        address: validator,
+                        name: validatorData?.name ? validatorData?.name : validator,
+                        website: validatorData?.website,
+                        image: validatorData?.image,
+                        status
+                    })
+                } else {
+                    let apiMetadata = await fetchNodeByAddress(validator)
+                    apiMetadata = apiMetadata["Node"]
+                    validatorMetadata.push({
+                        ...metadata,
+                        address: validator,
+                        name: validatorData?.name,
+                        website: validatorData?.website,
+                        image: validatorData?.image,
+                        firstSeen: apiMetadata?.firstSeen ? apiMetadata?.firstSeen : undefined,
+                        forDelegation: apiMetadata?.forDelegation ? apiMetadata?.forDelegation : undefined,
+                        totalValidated: apiMetadata?.totalValidated ? apiMetadata?.totalValidated : undefined,
+                        uptime: apiMetadata?.upTime ? apiMetadata?.upTime : undefined,
+                        description: apiMetadata?.description ? apiMetadata?.description : undefined,
+                        status
+                    })
+                }
             })).then(() => {
                 resolve({ validatorMetadata, totalDelegators })
             }).catch((error) => {
