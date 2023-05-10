@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer className="w-full bg-white">
       <div className="bg-light-gray w-full flex justify-center py-10">
-        <div className="grid grid-cols-6 justify-between items-center w-full md:grid-cols-2 md:gap-x-9 md:gap-y-10 md:w-4/5">
+        <div className="grid grid-cols-6 justify-between items-center w-full md:grid-cols-2 md:gap-x-9 md:gap-y-10 md:w-9/10">
           <a href="https://medium.com/fuseio" target="_blank" rel="noreferrer">
             <div className="flex justify-center">
               <img src={medium} alt="medium" />

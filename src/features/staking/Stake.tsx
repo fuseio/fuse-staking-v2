@@ -59,60 +59,52 @@ const Stake = () => {
     }
   }, [wallet]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className="w-full bg-light-gray flex flex-col items-center">
       <Breadcrumb
         links={["/"]}
         states={["Fuse Staking", validator?.name || "Validator"]}
-        className="w-8/9 mt-4"
+        className="w-8/9 mt-4 md:w-9/10"
       />
-      <div className="flex w-8/9">
-        <div className="w-[65%] flex flex-col">
-          <div className="flex mt-8 items-start justify-start">
-            <div className="h-20 w-1/10">
-              {!validator ? (
-                <div className="h-20 w-20 rounded-md bg-dark-gray animate-pulse"></div>
-              ) : validator.image ? (
-                <img
-                  src={
-                    new URL(`../../assets/${validator.image}`, import.meta.url)
-                      .href
-                  }
-                  alt="validator"
-                  width="80"
-                  height="80"
-                  className="rounded-md"
-                />
-              ) : (
-                <Jazzicon
-                  diameter={80}
-                  seed={parseInt(validator.name as string, 16)}
-                />
-              )}
-            </div>
-            <div className="flex flex-col items-end justify-between w-9/10 h-full ms-6">
-              <div className="flex justify-between w-full items-end">
+      <div className="flex w-8/9 md:flex-col md:w-9/10">
+        <div className="w-[65%] flex flex-col md:w-full">
+          <div className="flex mt-8 items-start justify-start md:flex-col">
+            <div className="w-1/2 flex justify-start h-20 md:w-full">
+              <div className="h-20">
+                {!validator ? (
+                  <div className="h-20 w-20 rounded-md bg-dark-gray animate-pulse"></div>
+                ) : validator.image ? (
+                  <img
+                    src={
+                      new URL(
+                        `../../assets/${validator.image}`,
+                        import.meta.url
+                      ).href
+                    }
+                    alt="validator"
+                    width="80"
+                    height="80"
+                    className="rounded-md"
+                  />
+                ) : (
+                  <Jazzicon
+                    diameter={80}
+                    seed={parseInt(validator.name as string, 16)}
+                  />
+                )}
+              </div>
+              <div className="flex flex-col h-full justify-between ms-6">
                 {validator ? (
-                  <p className="font-black text-fuse-black text-[40px]/10">
+                  <p className="font-black text-fuse-black text-[40px]/10 md:text-2xl">
                     {validator.name}
                   </p>
                 ) : (
                   <p className="px-28 py-5 bg-dark-gray rounded-lg animate-pulse" />
                 )}
-                <p className="text-text-heading-gray text-base">
-                  Validating Since
-                  {validator ? (
-                    <span className="ms-1 font-semibold">
-                      {new Date(
-                        parseInt(validator.firstSeen as string) * 1000
-                      ).toLocaleDateString()}
-                    </span>
-                  ) : (
-                    <span className="ms-2 px-14 py-1 bg-dark-gray rounded-lg animate-pulse" />
-                  )}
-                </p>
-              </div>
-              <div className="flex justify-between w-full items-end">
                 {validator ? (
                   <span className="text-text-dark-gray text-base flex">
                     {eclipseAddress(id as string)}
@@ -128,21 +120,34 @@ const Stake = () => {
                 ) : (
                   <span className="px-14 py-3 bg-dark-gray rounded-lg animate-pulse" />
                 )}
-
-                <p className="text-text-heading-gray text-base">
-                  Validated Blocks
-                  {validator ? (
-                    <span className="ms-1 font-semibold">
-                      {validator.totalValidated}
-                    </span>
-                  ) : (
-                    <span className="ms-2 px-7 py-1 bg-dark-gray rounded-lg animate-pulse" />
-                  )}
-                </p>
               </div>
             </div>
+            <div className="flex flex-col items-end justify-between w-1/2 h-full ms-6 md:w-full md:items-start md:ms-0 md:mt-8">
+              <p className="text-text-heading-gray text-base">
+                Validating Since
+                {validator ? (
+                  <span className="ms-1 font-semibold">
+                    {new Date(
+                      parseInt(validator.firstSeen as string) * 1000
+                    ).toLocaleDateString()}
+                  </span>
+                ) : (
+                  <span className="ms-2 px-14 py-1 bg-dark-gray rounded-lg animate-pulse" />
+                )}
+              </p>
+              <p className="text-text-heading-gray text-base md:mt-4">
+                Validated Blocks
+                {validator ? (
+                  <span className="ms-1 font-semibold">
+                    {validator.totalValidated}
+                  </span>
+                ) : (
+                  <span className="ms-2 px-7 py-1 bg-dark-gray rounded-lg animate-pulse" />
+                )}
+              </p>
+            </div>
           </div>
-          <div className="grid grid-cols-2 mt-10 gap-4">
+          <div className="grid grid-cols-2 mt-10 gap-4 md:grid-cols-1">
             <InfoCard
               size="large"
               Header={new Intl.NumberFormat().format(
@@ -224,7 +229,7 @@ const Stake = () => {
             </div>
           )}
         </div>
-        <div className="w-[35%] ps-16 h-full pt-8 pb-6">
+        <div className="w-[35%] ps-16 h-full pt-8 pb-6 md:w-full md:ps-0 md:justify-center md:flex">
           <StickyBox offsetTop={80}>
             <StakeCard
               validator={validator}

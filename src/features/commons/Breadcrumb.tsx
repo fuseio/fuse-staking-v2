@@ -17,7 +17,7 @@ const Breadcrumb = ({
   links,
 }: BreadcrumbProps) => {
   return (
-    <div className={"flex justify-start items-center " + className}>
+    <div className={"flex justify-start items-center md:hidden " + className}>
       <img src={hut} alt="Home" />
       {states.map((state, index) => {
         if (index < states.length - 1)
@@ -26,7 +26,7 @@ const Breadcrumb = ({
               <img src={rightLight} alt="Right" className="mx-2" />
               <a
                 href={links[index]}
-                className="font-medium text-sm text-text-inactive hover:underline"
+                className="font-medium text-sm hover:underline text-text-inactive"
               >
                 {state}
               </a>
@@ -36,7 +36,7 @@ const Breadcrumb = ({
           return (
             <span className="flex">
               <img src={right} alt="Right" className="mx-2" />
-              <p className="font-medium text-sm hover:">{state}</p>
+              <p className="font-medium text-sm ">{state}</p>
             </span>
           );
       })}

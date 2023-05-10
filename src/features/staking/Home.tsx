@@ -106,9 +106,9 @@ const Home = () => {
       <Breadcrumb
         links={["/"]}
         states={["Fuse Staking"]}
-        className="w-8/9 mt-4 md:w-4/5"
+        className="w-8/9 mt-4 md:w-9/10"
       />
-      <div className="w-8/9 flex flex-col mt-8 md:w-4/5">
+      <div className="w-8/9 flex flex-col mt-8 md:w-9/10">
         <div className="flex w-full items-start">
           <div className="flex flex-col w-3/5 md:w-full">
             <span className="font-black text-5xl md:text-4xl">Fuse Staking</span>
@@ -194,7 +194,7 @@ const Home = () => {
             }}
           />
           <FilterBar
-            className="w-3/10 pe-7 md:w-full md:mt-8 md:pe-0"
+            className="w-3/10 pe-7 md:mt-8 md:pe-0"
             name="State"
             states={["All", "Open", "Closed"]}
             background={["#DDF5FF", "#E0FFDD", "#EBEBEB"]}

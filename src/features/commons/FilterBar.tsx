@@ -25,7 +25,7 @@ const FilterBar = ({
     onClick(i, states[i]);
   };
   return (
-    <div className={"flex justify-end " + className}>
+    <div className={"flex justify-end md:w-full md:justify-center " + className}>
       <span className="font-normal text-base text-text-dark-gray pe-2 md:text-sm">
         {name}
       </span>
