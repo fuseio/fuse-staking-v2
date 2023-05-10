@@ -14,7 +14,7 @@ const ConnectWallet = () => {
   }, [wallet]);
   return (
     <button
-      className="bg-fuse-black text-white px-4 py-2 rounded-full font-medium"
+      className="bg-fuse-black text-white px-4 py-2 rounded-full font-medium md:text-sm"
       onClick={() => {
         wallet ? disconnect(wallet) : connect();
       }}

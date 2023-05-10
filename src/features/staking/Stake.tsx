@@ -17,6 +17,7 @@ import {
 import { eclipseAddress } from "../../utils/helpers";
 import Jazzicon from "react-jazzicon";
 import { useConnectWallet } from "@web3-onboard/react";
+import Breadcrumb from "../commons/Breadcrumb";
 const Stake = () => {
   const { id } = useParams();
   const [{ wallet }] = useConnectWallet();
@@ -59,7 +60,12 @@ const Stake = () => {
   }, [wallet]);
 
   return (
-    <div className="w-full bg-light-gray flex justify-center">
+    <div className="w-full bg-light-gray flex flex-col items-center">
+      <Breadcrumb
+        links={["/"]}
+        states={["Fuse Staking", validator?.name || "Validator"]}
+        className="w-8/9 mt-4"
+      />
       <div className="flex w-8/9">
         <div className="w-[65%] flex flex-col">
           <div className="flex mt-8 items-start justify-start">
@@ -220,7 +226,10 @@ const Stake = () => {
         </div>
         <div className="w-[35%] ps-16 h-full pt-8 pb-6">
           <StickyBox offsetTop={80}>
-            <StakeCard validator={validator} />
+            <StakeCard
+              validator={validator}
+              closed={!validator?.forDelegation}
+            />
           </StickyBox>
         </div>
       </div>

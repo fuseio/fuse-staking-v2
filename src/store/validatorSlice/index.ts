@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { AppState } from '../rootReducer'
 import { fetchValidatorData, getJailedValidators, getStake, getTotalStakeAmount, getValidators } from '../../utils/contractInteract'
 import Validators from '../../validators/validators.json'
-import { fetchFuseTokenData, fetchNodeByAddress, fetchTokenPrice } from '../../utils/api'
+import { fetchFuseTokenData, fetchNodeByAddress, fetchTokenPrice, fetchTotalSupply } from '../../utils/api'
 
 export interface ValidatorType {
     address: string
@@ -33,7 +33,7 @@ export interface ValidatorStateType {
     errorMessage: string
     totalDelegators: number
     fuseTokenUSDPrice: number
-    fuseTokenCirculatingSupply: number
+    fuseTokenTotalSupply: number
 }
 
 const INIT_STATE: ValidatorStateType = {
@@ -48,7 +48,7 @@ const INIT_STATE: ValidatorStateType = {
     errorMessage: '',
     isBalanceLoading: false,
     fuseTokenUSDPrice: 0,
-    fuseTokenCirculatingSupply: 0
+    fuseTokenTotalSupply: 0
 }
 
 export const fetchValidators = createAsyncThunk(
@@ -59,10 +59,15 @@ export const fetchValidators = createAsyncThunk(
                 getValidators().then(async (validators) => {
                     const jailedValidators = await getJailedValidators()
                     validators = validators.concat(jailedValidators)
-                    const price: number = await fetchTokenPrice()
-                    const tokenData = await fetchFuseTokenData()
-                    const fuseTokenCirculatingSupply = tokenData["total"]
-                    resolve({ totalStakeAmount, validators, price, fuseTokenCirculatingSupply })
+                    const fuseTokenTotalSupply = await fetchTotalSupply()
+                    let price: number = 0
+                    fetchTokenPrice().then(data => {
+                        price = data
+                        resolve({ totalStakeAmount, validators, price, fuseTokenTotalSupply })
+                    }).catch((e) => {
+                        price = 0
+                        resolve({ totalStakeAmount, validators, price, fuseTokenTotalSupply })
+                    })
                 }).catch((error) => {
                     reject(error)
                 })
@@ -153,7 +158,7 @@ const validatorSlice = createSlice({
             state.totalStakeAmount = payload.totalStakeAmount
             state.validators = payload.validators
             state.fuseTokenUSDPrice = payload.price
-            state.fuseTokenCirculatingSupply = payload.fuseTokenCirculatingSupply
+            state.fuseTokenTotalSupply = payload.fuseTokenTotalSupply
         },
         [fetchValidators.rejected.toString()]: (state, { error }) => {
             state.isLoading = false

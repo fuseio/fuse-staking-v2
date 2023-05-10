@@ -13,9 +13,18 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 type StakeCardProps = {
   className?: string;
   validator: ValidatorType | undefined;
+  closed?: boolean;
 };
-const StakeCard = ({ className = "", validator }: StakeCardProps) => {
-  const [mode, setMode] = React.useState(0);
+const StakeCard = ({
+  className = "",
+  validator,
+  closed = false,
+}: StakeCardProps) => {
+  const [cardMode, setCardMode] = React.useState(closed ? 1 : 0);
+  const setMode = (mode: number) => {
+    if (closed) return;
+    setCardMode(mode);
+  };
   const [amount, setAmount] = React.useState<number>(0.0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [{ wallet }, connect, disconnect, updateBalances] = useConnectWallet();
@@ -32,7 +41,7 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
   const getPredictedReward = (amt: number) => {
     if (validator) {
       const reward =
-        validatorSlice.fuseTokenCirculatingSupply *
+        validatorSlice.fuseTokenTotalSupply *
         0.05 *
         (amt / parseFloat(validatorSlice.totalStakeAmount)) *
         (1 - parseFloat(validator.fee) / 100);
@@ -44,7 +53,7 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
   const getPredictedIncrease = () => {
     if (validator) {
       const reward =
-        (validatorSlice.fuseTokenCirculatingSupply /
+        (validatorSlice.fuseTokenTotalSupply /
           parseFloat(validatorSlice.totalStakeAmount)) *
         0.05 *
         (1 - parseFloat(validator.fee) / 100);
@@ -56,7 +65,7 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
   const [reward, setReward] = React.useState<number>(0.0);
 
   useEffect(() => {
-    if (mode === 0) {
+    if (cardMode === 0) {
       if (validator?.selfStakeAmount)
         setReward(
           getPredictedReward(parseFloat(validator.selfStakeAmount) + amount)
@@ -77,7 +86,7 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
       <div className="flex">
         <p
           className={
-            mode === 0
+            cardMode === 0
               ? "font-bold cursor-pointer"
               : "font-bold text-inactive cursor-pointer"
           }
@@ -90,7 +99,7 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
         </p>
         <p
           className={
-            mode === 1
+            cardMode === 1
               ? "font-bold ms-5 cursor-pointer"
               : "font-bold text-inactive ms-5 cursor-pointer"
           }
@@ -103,7 +112,7 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
         </p>
       </div>
       <div className="flex w-full justify-end mt-6">
-        {mode === 0 && (
+        {cardMode === 0 && (
           <p className="text-xs text-text-gray">
             Available Balance:{" "}
             {wallet ? new Intl.NumberFormat().format(balance) : "0"} Fuse
@@ -125,7 +134,7 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
                 setAmount(0);
               } else {
                 if (
-                  mode === 1 &&
+                  cardMode === 1 &&
                   amt > parseFloat(validator?.selfStakeAmount as string)
                 ) {
                   return;
@@ -140,7 +149,7 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
               className="bg-black font-medium text-sm text-white rounded-[4px]"
               padding="px-[8px] py-[6px] "
               onClick={() => {
-                if (mode === 0) {
+                if (cardMode === 0) {
                   setAmount(balance);
                 } else {
                   setAmount(
@@ -169,7 +178,7 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
       </div>
       <div className="flex justify-between mt-2">
         <p className="text-sm font-semibold text-text-gray">
-          {mode === 0 ? "New Stake" : "Removed Stake"}
+          {cardMode === 0 ? "New Stake" : "Removed Stake"}
         </p>
         <p className="text-sm font-semibold text-[#071927]">
           {new Intl.NumberFormat().format(amount)} FUSE
@@ -180,7 +189,7 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
         <p className="text-sm font-semibold text-text-gray">Total</p>
         {validator ? (
           <p className="text-sm font-semibold text-[#071927]">
-            {mode === 0
+            {cardMode === 0
               ? validator.selfStakeAmount
                 ? new Intl.NumberFormat().format(
                     amount + parseFloat(validator.selfStakeAmount)
@@ -216,13 +225,13 @@ const StakeCard = ({ className = "", validator }: StakeCardProps) => {
         )}
       </div>
       <Button
-        text={isLoading ? "Loading..." : mode === 0 ? "Stake" : "Unstake"}
+        text={isLoading ? "Loading..." : cardMode === 0 ? "Stake" : "Unstake"}
         className="bg-black font-medium text-white mt-6 rounded-full"
         disabled={isLoading}
         onClick={() => {
           if (!wallet) return;
           if (!validator) return;
-          if (mode === 0) {
+          if (cardMode === 0) {
             setIsLoading(true);
             delegate(amount.toString(), validator?.address as string)
               .then(() => {

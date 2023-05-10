@@ -29,9 +29,9 @@ const FaqQuestion = ({
         )}
       </span>
       <span className="flex flex-col ms-6">
-        <span className="text-lg/[18px] font-bold">{question}</span>
+        <span className="text-lg/[18px] font-bold md:text-base/[18px]">{question}</span>
         {isAnswerVisible && (
-          <span className="text-text-dark-gray font-normal text-base mt-3">
+          <span className="text-text-dark-gray font-normal text-base mt-3 md:text-sm">
             {answer}
           </span>
         )}

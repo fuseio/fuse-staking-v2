@@ -27,7 +27,7 @@ const ValidatorsPane = ({
 
   return (
     <div className="flex w-full flex-col">
-      <div className="w-full grid grid-cols-4 mt-9 gap-x-9 gap-y-10">
+      <div className="w-full grid grid-cols-4 mt-9 gap-x-9 gap-y-10 md:grid-cols-1 md:gap-y-6">
         {isLoading &&
           Array.from([1, 2, 3, 4, 5, 6]).map((i) => {
             return (

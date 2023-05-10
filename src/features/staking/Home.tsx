@@ -14,6 +14,7 @@ import {
 } from "../../store/validatorSlice";
 import { useConnectWallet } from "@web3-onboard/react";
 import ValidatorsPane from "./ValidatorsPane";
+import Breadcrumb from "../commons/Breadcrumb";
 
 const Home = () => {
   const [{ wallet }] = useConnectWallet();
@@ -101,12 +102,17 @@ const Home = () => {
   }, [filter, validatorSlice.validatorMetadata]);
 
   return (
-    <div className="w-full bg-light-gray flex justify-center">
-      <div className="w-8/9 flex flex-col mt-8">
-        <div className="flex w-full items-end">
-          <div className="flex flex-col w-3/5">
-            <span className="font-black text-5xl">Fuse Staking</span>
-            <span className="text-xl font-normal mt-6 text-text-dark-gray">
+    <div className="w-full bg-light-gray flex flex-col items-center">
+      <Breadcrumb
+        links={["/"]}
+        states={["Fuse Staking"]}
+        className="w-8/9 mt-4 md:w-4/5"
+      />
+      <div className="w-8/9 flex flex-col mt-8 md:w-4/5">
+        <div className="flex w-full items-start">
+          <div className="flex flex-col w-3/5 md:w-full">
+            <span className="font-black text-5xl md:text-4xl">Fuse Staking</span>
+            <span className="text-xl font-normal mt-6 text-text-dark-gray md:text-base">
               The Fuse Staking Dapp enables users to participate in the Fuse
               network's consensus by staking FUSE tokens. Through a
               user-friendly interface, validators and delegators can manage
@@ -115,11 +121,11 @@ const Home = () => {
               network.
             </span>
           </div>
-          <div className="w-2/5 flex justify-end">
+          <div className="w-2/5 flex justify-end md:hidden">
             <img src={piggybank} alt="piggybank" />
           </div>
         </div>
-        <div className="flex justify-between mt-20">
+        <div className="grid grid-cols-4 mt-9 gap-x-9 gap-y-10 justify-between md:mt-12 md:grid-cols-1 md:gap-y-3 md:gap-x-3">
           <InfoCard
             Header={
               new Intl.NumberFormat().format(
@@ -137,6 +143,7 @@ const Home = () => {
             classname="mr-4"
             key={1}
             isLoading={validatorSlice.isLoading}
+            size="large"
           />
           <InfoCard
             Header={
@@ -155,6 +162,7 @@ const Home = () => {
             classname="mr-4"
             key={2}
             isLoading={validatorSlice.isBalanceLoading}
+            size="large"
           />
           <InfoCard
             Header={validatorSlice.validators.length.toString()}
@@ -163,6 +171,7 @@ const Home = () => {
             classname="mr-4"
             key={3}
             isLoading={validatorSlice.isLoading}
+            size="large"
           />
           <InfoCard
             Header={new Intl.NumberFormat().format(
@@ -174,17 +183,18 @@ const Home = () => {
             isLoading={
               validatorSlice.isMetadataLoading || validatorSlice.isLoading
             }
+            size="large"
           />
         </div>
-        <div className="flex mt-16 justify-between items-center">
+        <div className="flex mt-16 justify-between items-center md:flex-col md:justify-start md:items-start">
           <SearchBar
-            className="w-3/10"
+            className="w-3/10 md:w-full"
             onChange={(e) => {
               setSearch(e.target.value);
             }}
           />
           <FilterBar
-            className="w-3/10 pe-7"
+            className="w-3/10 pe-7 md:w-full md:mt-8 md:pe-0"
             name="State"
             states={["All", "Open", "Closed"]}
             background={["#DDF5FF", "#E0FFDD", "#EBEBEB"]}
@@ -195,7 +205,7 @@ const Home = () => {
             select={1}
           />
           <FilterBar
-            className="w-2/5"
+            className="w-2/5 md:w-full md:mt-12"
             name="Status"
             states={["All", "Active", "Inactive"]}
             background={["#DDF5FF", "#E0FFDD", "#FFDDDD"]}
@@ -213,7 +223,7 @@ const Home = () => {
           validators={validatorsToDisplay}
         />
         <FAQ
-          className="mt-36"
+          className="mt-16"
           questions={[
             "Do I still need $FUSE after I acquire $VOLT?",
             "Do I still need $FUSE after I acquire $VOLT?",

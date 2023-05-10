@@ -25,6 +25,7 @@ module.exports = {
       "text-gray": "#9F9F9F",
       "text-darker-gray": "#737373",
       "text-heading-gray": "#4D4D4D",
+      "text-inactive": "#D1D1D1",
       "fuse-green": "#20B92E",
       white: "#FFFFFF",
       "fuse-black": "#1A1A1A",
