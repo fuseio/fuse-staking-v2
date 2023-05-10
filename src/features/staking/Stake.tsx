@@ -229,7 +229,7 @@ const Stake = () => {
             </div>
           )}
         </div>
-        <div className="w-[35%] ps-16 h-full pt-8 pb-6 md:w-full md:ps-0 md:justify-center md:flex">
+        <div className="w-[35%] ps-16 h-full pt-8 pb-6 md:w-full md:ps-0">
           <StickyBox offsetTop={80}>
             <StakeCard
               validator={validator}
