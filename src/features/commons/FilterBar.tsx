@@ -26,7 +26,7 @@ const FilterBar = ({
   };
   return (
     <div className={"flex justify-end " + className}>
-      <span className="font-normal text-base text-text-dark-gray pe-2">
+      <span className="font-normal text-base text-text-dark-gray pe-2 md:text-sm">
         {name}
       </span>
       <div className="ps-2">
@@ -47,8 +47,8 @@ const FilterBar = ({
                 }
                 className={
                   selected === index
-                    ? "text-base text-black cursor-pointer py-5 px-6 bg-dark-gray font-bold rounded-s-full"
-                    : "text-base text-black cursor-pointer py-5 px-6 bg-white font-bold rounded-s-full"
+                    ? "text-base text-black cursor-pointer py-5 px-6 bg-dark-gray font-bold rounded-s-full md:text-sm"
+                    : "text-base text-black cursor-pointer py-5 px-6 bg-white font-bold rounded-s-full md:text-sm"
                 }
                 onClick={() => handleClick(index)}
               >
@@ -72,8 +72,8 @@ const FilterBar = ({
                 }
                 className={
                   selected === index
-                    ? "text-base text-black cursor-pointer py-5 px-5 bg-dark-gray font-bold rounded-e-full"
-                    : "text-base text-black cursor-pointer py-5 px-5 bg-white font-bold rounded-e-full"
+                    ? "text-base text-black cursor-pointer py-5 px-5 bg-dark-gray font-bold rounded-e-full md:text-sm"
+                    : "text-base text-black cursor-pointer py-5 px-5 bg-white font-bold rounded-e-full md:text-sm"
                 }
                 onClick={() => handleClick(index)}
               >
@@ -96,8 +96,8 @@ const FilterBar = ({
               }
               className={
                 selected === index
-                  ? "text-base text-black cursor-pointer py-5 px-5 bg-dark-gray font-bold"
-                  : "text-base text-black cursor-pointer py-5 px-5 bg-white font-bold"
+                  ? "text-base text-black cursor-pointer py-5 px-5 bg-dark-gray font-bold md:text-sm"
+                  : "text-base text-black cursor-pointer py-5 px-5 bg-white font-bold md:text-sm"
               }
               onClick={() => handleClick(index)}
             >

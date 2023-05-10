@@ -9,15 +9,15 @@ type FAQProps = {
 
 const FAQ = ({ questions, answers, className = "" }: FAQProps) => {
   return (
-    <div className={"flex w-full " + className}>
-      <div className="w-2/5">
-        <span className="text-black font-black text-5xl">
+    <div className={"flex w-full md:flex-col " + className}>
+      <div className="w-2/5 md:w-full">
+        <span className="text-black font-black text-5xl md:text-2xl md:text-center">
           Frequently
           <br /> Asked
           <br /> Questions
         </span>
       </div>
-      <div className="w-3/5">
+      <div className="w-3/5 md:w-full md:mt-8">
         {questions.map((question, index) => (
           <FaqQuestion
             key={index}
