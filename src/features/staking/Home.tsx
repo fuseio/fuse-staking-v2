@@ -111,7 +111,9 @@ const Home = () => {
       <div className="w-8/9 flex flex-col mt-8 md:w-9/10">
         <div className="flex w-full items-start">
           <div className="flex flex-col w-3/5 md:w-full">
-            <span className="font-black text-5xl md:text-4xl">Fuse Staking</span>
+            <span className="font-black text-5xl md:text-4xl">
+              Fuse Staking
+            </span>
             <span className="text-xl font-normal mt-6 text-text-dark-gray md:text-base">
               The Fuse Staking Dapp enables users to participate in the Fuse
               network's consensus by staking FUSE tokens. Through a
@@ -125,7 +127,7 @@ const Home = () => {
             <img src={piggybank} alt="piggybank" />
           </div>
         </div>
-        <div className="grid grid-cols-4 mt-9 gap-x-9 gap-y-10 justify-between md:mt-12 md:grid-cols-1 md:gap-y-3 md:gap-x-3">
+        <div className="grid grid-cols-4 mt-9 gap-x-4 justify-between md:mt-12 md:grid-cols-1 md:gap-y-3 md:gap-x-3">
           <InfoCard
             Header={
               new Intl.NumberFormat().format(

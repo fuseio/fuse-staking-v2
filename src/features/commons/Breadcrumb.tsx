@@ -22,7 +22,7 @@ const Breadcrumb = ({
       {states.map((state, index) => {
         if (index < states.length - 1)
           return (
-            <span className="flex">
+            <span className="flex" key={index}>
               <img src={rightLight} alt="Right" className="mx-2" />
               <a
                 href={links[index]}
@@ -34,7 +34,7 @@ const Breadcrumb = ({
           );
         else
           return (
-            <span className="flex">
+            <span className="flex" key={index}>
               <img src={right} alt="Right" className="mx-2" />
               <p className="font-medium text-sm ">{state}</p>
             </span>

@@ -60,8 +60,8 @@ const Stake = () => {
   }, [wallet]);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="w-full bg-light-gray flex flex-col items-center">
@@ -73,7 +73,7 @@ const Stake = () => {
       <div className="flex w-8/9 md:flex-col md:w-9/10">
         <div className="w-[65%] flex flex-col md:w-full">
           <div className="flex mt-8 items-start justify-start md:flex-col">
-            <div className="w-1/2 flex justify-start h-20 md:w-full">
+            <div className="w-2/3 flex justify-start h-20 md:w-full">
               <div className="h-20">
                 {!validator ? (
                   <div className="h-20 w-20 rounded-md bg-dark-gray animate-pulse"></div>
@@ -122,7 +122,7 @@ const Stake = () => {
                 )}
               </div>
             </div>
-            <div className="flex flex-col items-end justify-between w-1/2 h-full ms-6 md:w-full md:items-start md:ms-0 md:mt-8">
+            <div className="flex flex-col items-end justify-between w-1/3 h-full ms-6 md:w-full md:items-start md:ms-0 md:mt-8">
               <p className="text-text-heading-gray text-base">
                 Validating Since
                 {validator ? (
