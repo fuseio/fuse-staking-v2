@@ -40,7 +40,7 @@ const Home = () => {
   }, [validatorSlice.validators]);
 
   useEffect(() => {
-    if (wallet) {
+    if (wallet && validatorSlice.validatorMetadata.length > 0) {
       dispatch(
         fetchSelfStake({
           address: wallet.accounts[0].address,
@@ -48,7 +48,7 @@ const Home = () => {
         })
       );
     }
-  }, [wallet]);
+  }, [wallet, validatorSlice.validatorMetadata.length]);
 
   const [filter, setFilter] = useState({
     search: "",

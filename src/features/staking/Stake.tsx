@@ -49,7 +49,7 @@ const Stake = () => {
   }, [validators.validators]);
 
   useEffect(() => {
-    if (wallet) {
+    if (wallet && validator) {
       dispatch(
         fetchSelfStake({
           address: wallet.accounts[0].address,
@@ -57,7 +57,7 @@ const Stake = () => {
         })
       );
     }
-  }, [wallet]);
+  }, [wallet, validator]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
