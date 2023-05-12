@@ -1,0 +1,3 @@
+{
+  "redirects": [{ "source": "/stake/:id", "destination": "/index.html" }]
+}
