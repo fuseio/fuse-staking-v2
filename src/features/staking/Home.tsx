@@ -225,7 +225,7 @@ const Home = () => {
           validators={validatorsToDisplay}
         />
         <FAQ
-          className="mt-16"
+          className="mt-28 mb-16"
           questions={[
             "Do I still need $FUSE after I acquire $VOLT?",
             "Do I still need $FUSE after I acquire $VOLT?",

@@ -11,11 +11,11 @@ const FAQ = ({ questions, answers, className = "" }: FAQProps) => {
   return (
     <div className={"flex w-full md:flex-col " + className}>
       <div className="w-2/5 md:w-full">
-        <span className="text-black font-black text-5xl md:text-2xl md:text-center">
+        <p className="text-black font-black text-5xl md:text-3xl md:text-center">
           Frequently
-          <br /> Asked
-          <br /> Questions
-        </span>
+          <br className="md:hidden"/> Asked
+          <br className="md:hidden"/> Questions
+        </p>
       </div>
       <div className="w-3/5 md:w-full md:mt-8">
         {questions.map((question, index) => (

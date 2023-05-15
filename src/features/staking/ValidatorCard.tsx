@@ -50,7 +50,7 @@ const ValidatorCard = ({
               <img
                 src={new URL(`../../assets/${image}`, import.meta.url).href}
                 alt="validator"
-                className="rounded-full h-16 w-16"
+                className="rounded-lg h-16 w-16"
               />
             ) : (
               <Jazzicon diameter={64} seed={parseInt(name, 16)} />
@@ -82,7 +82,7 @@ const ValidatorCard = ({
         {isLoading ? (
           <span className="px-14 bg-dark-gray rounded-md animate-pulse"></span>
         ) : (
-          <p className="text-base font-normal text-text-gray">{stakedAmount}</p>
+          <p className="text-base font-normal text-secondary-gray">{stakedAmount}</p>
         )}
       </div>
       <div className="flex justify-between pt-3">
@@ -90,7 +90,7 @@ const ValidatorCard = ({
         {isLoading ? (
           <span className="px-5 bg-dark-gray rounded-md animate-pulse"></span>
         ) : (
-          <p className="text-base font-normal text-text-gray">{commission}</p>
+          <p className="text-base font-normal text-secondary-gray">{commission}</p>
         )}
       </div>
       <div className="flex justify-between pt-3">

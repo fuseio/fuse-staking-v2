@@ -122,8 +122,8 @@ const Stake = () => {
                 )}
               </div>
             </div>
-            <div className="flex flex-col items-end justify-between w-1/3 h-full ms-6 md:w-full md:items-start md:ms-0 md:mt-8">
-              <p className="text-text-heading-gray text-base">
+            <div className="flex flex-col items-end justify-center w-1/3 h-full ms-6 md:w-full md:items-start md:ms-0 md:mt-8">
+              <p className="text-text-heading-gray text-base mb-1">
                 Validating Since
                 {validator ? (
                   <span className="ms-1 font-semibold">
@@ -135,7 +135,7 @@ const Stake = () => {
                   <span className="ms-2 px-14 py-1 bg-dark-gray rounded-lg animate-pulse" />
                 )}
               </p>
-              <p className="text-text-heading-gray text-base md:mt-4">
+              <p className="text-text-heading-gray text-base md:mt-4 mt-1">
                 Validated Blocks
                 {validator ? (
                   <span className="ms-1 font-semibold">
