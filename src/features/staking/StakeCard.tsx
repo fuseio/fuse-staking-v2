@@ -25,7 +25,7 @@ const StakeCard = ({
     if (closed) return;
     setCardMode(mode);
   };
-  const [amount, setAmount] = React.useState<number>(0.0);
+  const [amount, setAmount] = React.useState<number | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [{ wallet }, connect, disconnect, updateBalances] = useConnectWallet();
   const [balance, setBalance] = React.useState<number>(0.0);
@@ -68,15 +68,19 @@ const StakeCard = ({
     if (cardMode === 0) {
       if (validator?.selfStakeAmount)
         setReward(
-          getPredictedReward(parseFloat(validator.selfStakeAmount) + amount)
+          getPredictedReward(
+            parseFloat(validator.selfStakeAmount) + (amount as number)
+          )
         );
-      else setReward(getPredictedReward(amount));
+      else setReward(getPredictedReward(amount as number));
     } else {
       if (validator?.selfStakeAmount)
         setReward(
-          getPredictedReward(parseFloat(validator.selfStakeAmount) - amount)
+          getPredictedReward(
+            parseFloat(validator.selfStakeAmount) - (amount as number)
+          )
         );
-      else setReward(getPredictedReward(amount));
+      else setReward(getPredictedReward(amount as number));
     }
   }, [amount]);
 
@@ -127,7 +131,7 @@ const StakeCard = ({
           <input
             className="bg-bg-dark-gray ms-2 outline-none h-full w-9/12"
             placeholder="0.0"
-            value={amount}
+            value={amount ? amount.toString() : ""}
             onChange={(e) => {
               const amt = parseFloat(e.target.value);
               if (isNaN(amt)) {
@@ -181,7 +185,7 @@ const StakeCard = ({
           {cardMode === 0 ? "New Stake" : "Removed Stake"}
         </p>
         <p className="text-sm font-semibold text-[#071927]">
-          {new Intl.NumberFormat().format(amount)} FUSE
+          {new Intl.NumberFormat().format(amount as number)} FUSE
         </p>
       </div>
       <hr className="w-full h-[0.5px] border-[#D1D1D1] my-3" />
@@ -192,14 +196,14 @@ const StakeCard = ({
             {cardMode === 0
               ? validator.selfStakeAmount
                 ? new Intl.NumberFormat().format(
-                    amount + parseFloat(validator.selfStakeAmount)
+                    (amount as number) + parseFloat(validator.selfStakeAmount)
                   )
-                : new Intl.NumberFormat().format(amount)
+                : new Intl.NumberFormat().format(amount as number)
               : validator.selfStakeAmount
               ? new Intl.NumberFormat().format(
-                  parseFloat(validator.selfStakeAmount) - amount
+                  parseFloat(validator.selfStakeAmount) - (amount as number)
                 )
-              : new Intl.NumberFormat().format(amount)}{" "}
+              : new Intl.NumberFormat().format(amount as number)}{" "}
             FUSE
           </p>
         ) : (
@@ -233,7 +237,10 @@ const StakeCard = ({
           if (!validator) return;
           if (cardMode === 0) {
             setIsLoading(true);
-            delegate(amount.toString(), validator?.address as string)
+            delegate(
+              (amount as number).toString(),
+              validator?.address as string
+            )
               .then(() => {
                 dispatch(
                   fetchSelfStake({
@@ -251,7 +258,10 @@ const StakeCard = ({
               });
           } else {
             setIsLoading(true);
-            withdraw(amount.toString(), validator?.address as string)
+            withdraw(
+              (amount as number).toString(),
+              validator?.address as string
+            )
               .then(() => {
                 dispatch(
                   fetchSelfStake({
