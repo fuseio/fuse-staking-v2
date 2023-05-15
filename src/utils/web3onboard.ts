@@ -1,7 +1,7 @@
 import { init } from '@web3-onboard/react'
 import injectedModule from '@web3-onboard/injected-wallets'
 import fuseLogo from '../assets/fuselogo.svg'
-import fuseToken from '../assets/fuseToken.svg'
+import fuseToken from '../assets/tokenLogo'
 import coinbaseWalletModule from '@web3-onboard/coinbase'
 import frontierModule from '@web3-onboard/frontier'
 import dcentModule from '@web3-onboard/dcent'
