@@ -127,7 +127,7 @@ const Home = () => {
             <img src={piggybank} alt="piggybank" />
           </div>
         </div>
-        <div className="grid grid-cols-4 mt-9 gap-x-4 justify-between md:mt-12 md:grid-cols-1 md:gap-y-3 md:gap-x-3">
+        <div className="grid grid-cols-4 mt-9 gap-x-2 justify-between md:mt-12 md:grid-cols-1 md:gap-y-3 md:gap-x-3">
           <InfoCard
             Header={
               new Intl.NumberFormat().format(
