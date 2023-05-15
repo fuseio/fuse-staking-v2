@@ -10,55 +10,75 @@ const Footer = () => {
   return (
     <footer className="w-full bg-white">
       <div className="bg-light-gray w-full flex justify-center py-10">
-        <div className="grid grid-cols-6 justify-between items-center w-full md:grid-cols-2 md:gap-x-9 md:gap-y-10 md:w-9/10">
-          <a href="https://medium.com/fuseio" target="_blank" rel="noreferrer">
-            <div className="flex justify-center">
-              <img src={medium} alt="medium" />
-              <span className="font-bold text-lg pt-1 ms-4">Medium</span>
-            </div>
-          </a>
-          <a href="https://github.com/fuseio" target="_blank" rel="noreferrer">
-            <div className="flex justify-center">
-              <img src={gh} alt="medium" />
-              <span className="font-bold text-lg pt-1 ms-4">GitHub</span>
-            </div>
-          </a>
-          <a
-            href="https://twitter.com/fuse_network"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div className="flex justify-center">
-              <img src={twitter} alt="medium" />
-              <span className="font-bold text-lg pt-1 ms-4">Twitter</span>
-            </div>
-          </a>
-          <a href="https://t.me/fuseio" target="_blank" rel="noreferrer">
-            <div className="flex justify-center">
-              <img src={tele} alt="medium" />
-              <span className="font-bold text-lg pt-1 ms-4">Telegram</span>
-            </div>
-          </a>
-          <a
-            href="https://discord.com/invite/jpPMeSZ"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div className="flex justify-center">
-              <img src={discord} alt="medium" />
-              <span className="font-bold text-lg pt-1 ms-4">Discord</span>
-            </div>
-          </a>
-          <a href="https://docs.fuse.io" target="_blank" rel="noreferrer">
-            <div className="flex justify-center">
-              <img src={medium} alt="medium" />
-              <span className="font-bold text-lg pt-1 ms-4">Docs</span>
-            </div>
-          </a>
+        <div className="flex justify-between w-full md:grid md:grid-cols-2 md:gap-x-9 md:gap-y-10 md:ps-5 md:w-9/10 max-w-7xl">
+          <span className="flex">
+            <a
+              href="https://medium.com/fuseio"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="flex">
+                <img src={medium} alt="medium" />
+                <span className="font-bold text-lg pt-1 ms-4">Medium</span>
+              </div>
+            </a>
+          </span>
+          <span className="flex">
+            <a
+              href="https://github.com/fuseio"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="flex">
+                <img src={gh} alt="medium" />
+                <span className="font-bold text-lg pt-1 ms-4">GitHub</span>
+              </div>
+            </a>
+          </span>
+          <span className="flex">
+            <a
+              href="https://twitter.com/fuse_network"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="flex">
+                <img src={twitter} alt="medium" />
+                <span className="font-bold text-lg pt-1 ms-4">Twitter</span>
+              </div>
+            </a>
+          </span>
+          <span className="flex">
+            <a href="https://t.me/fuseio" target="_blank" rel="noreferrer">
+              <div className="flex">
+                <img src={tele} alt="medium" />
+                <span className="font-bold text-lg pt-1 ms-4">Telegram</span>
+              </div>
+            </a>
+          </span>
+          <span className="flex">
+            <a
+              href="https://discord.com/invite/jpPMeSZ"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="flex">
+                <img src={discord} alt="medium" />
+                <span className="font-bold text-lg pt-1 ms-4">Discord</span>
+              </div>
+            </a>
+          </span>
+          <span className="flex">
+            <a href="https://docs.fuse.io" target="_blank" rel="noreferrer">
+              <div className="flex">
+                <img src={medium} alt="medium" />
+                <span className="font-bold text-lg pt-1 ms-4">Docs</span>
+              </div>
+            </a>
+          </span>
         </div>
       </div>
       <div className="bg-white flex justify-center my-16 w-full">
-        <div className="flex flex-col w-5/6">
+        <div className="flex flex-col w-5/6 max-w-7xl">
           <div className="flex justify-between w-full md:flex-col">
             <div className="flex justify-between w-2/5 md:w-full">
               <div className="flex flex-col w-1/2">
@@ -113,7 +133,7 @@ const Footer = () => {
             <div className="w-2/5 flex flex-col md:w-full md:mt-10">
               <p className="font-bold">Subscribe to our newsletter</p>
               <p className="text-text-dark-gray my-4">
-                Join text Join text Join text Join text Join text
+                Get the latest news directly to your inbox
               </p>
               <SubscribeBar />
             </div>

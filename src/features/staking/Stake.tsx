@@ -68,9 +68,9 @@ const Stake = () => {
       <Breadcrumb
         links={["/"]}
         states={["Fuse Staking", validator?.name || "Validator"]}
-        className="w-8/9 mt-4 md:w-9/10"
+        className="w-8/9 mt-4 md:w-9/10 max-w-7xl"
       />
-      <div className="flex w-8/9 md:flex-col md:w-9/10">
+      <div className="flex w-8/9 md:flex-col md:w-9/10 max-w-7xl">
         <div className="w-[65%] flex flex-col md:w-full">
           <div className="flex mt-8 items-start justify-start md:flex-col">
             <div className="w-2/3 flex justify-start h-20 md:w-full">
