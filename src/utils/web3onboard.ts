@@ -1,6 +1,7 @@
 import { init } from '@web3-onboard/react'
 import injectedModule from '@web3-onboard/injected-wallets'
 import fuseLogo from '../assets/fuselogo.svg'
+import fuseToken from '../assets/fuseToken.svg'
 import coinbaseWalletModule from '@web3-onboard/coinbase'
 import frontierModule from '@web3-onboard/frontier'
 import dcentModule from '@web3-onboard/dcent'
@@ -66,7 +67,9 @@ const fuse = {
     id: '0x7A',
     token: 'Fuse',
     label: 'Fuse Mainnet',
-    rpcUrl: "https://rpc.fuse.io"
+    rpcUrl: "https://rpc.fuse.io",
+    icon: fuseToken,
+    blockExplorerUrl: 'https://explorer.fuse.io',
 }
 
 const chains = [fuse]
@@ -95,7 +98,7 @@ export const web3Onboard = init({
     appMetadata: {
         name: "Fuse Staking",
         icon: fuseLogo,
-        description: "Fuse Staking"
+        description: "Fuse Staking",
     },
     accountCenter: {
         desktop: {
