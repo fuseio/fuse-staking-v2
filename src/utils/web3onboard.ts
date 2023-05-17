@@ -1,6 +1,6 @@
 import { init } from '@web3-onboard/react'
 import injectedModule from '@web3-onboard/injected-wallets'
-import fuseLogo from '../assets/fuselogo.svg'
+import fuseLogo from '../assets/fuse.svg'
 import fuseToken from '../assets/tokenLogo'
 import coinbaseWalletModule from '@web3-onboard/coinbase'
 import frontierModule from '@web3-onboard/frontier'
@@ -98,7 +98,8 @@ export const web3Onboard = init({
     appMetadata: {
         name: "Fuse Staking",
         icon: fuseLogo,
-        description: "Fuse Staking",
+        logo: fuseLogo,
+        description: "The Fuse Staking Dapp enables users to participate in the Fuse network's consensus by staking FUSE tokens.",
     },
     accountCenter: {
         desktop: {

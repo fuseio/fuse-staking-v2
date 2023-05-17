@@ -3,4 +3,5 @@ export const CONFIG = {
     blockRewardAddress: "0x63D4efeD2e3dA070247bea3073BCaB896dFF6C9B",
     fuseRPC: "https://rpc.fuse.io",
     bootApi: "https://bot.fuse.io/api/v1",
+    GoogleAnalyticsId: "G-LHHHX57LEJ",
 }

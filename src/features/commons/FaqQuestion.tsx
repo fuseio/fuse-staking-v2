@@ -1,10 +1,10 @@
 import React from "react";
-import plus from "../../assets/plus.png";
-import minus from "../../assets/minus.png";
+import plus from "../../assets/plus.svg";
+import minus from "../../assets/minus.svg";
 
 type FaqQuestionProps = {
   question: string;
-  answer: string;
+  answer: JSX.Element;
   className?: string;
 };
 
@@ -21,18 +21,20 @@ const FaqQuestion = ({
         setIsAnswerVisible(!isAnswerVisible);
       }}
     >
-      <span>
+      <div className="w-[5%] md:w-1/10">
         {isAnswerVisible ? (
-          <img src={minus} alt="minus" width="40px"  className="mt-1" />
+          <img src={minus} alt="minus" className="mt-1" />
         ) : (
-          <img src={plus} alt="plus" width="16px" />
+          <img src={plus} alt="plus" />
         )}
-      </span>
-      <span className="flex flex-col ms-6">
-        <span className="text-lg/[18px] font-bold md:text-base/[18px]">{question}</span>
+      </div>
+      <span className="flex flex-col w-[95%] md:w-9/10">
+        <span className="text-lg/[18px] font-bold md:text-base/[18px]">
+          {question}
+        </span>
         {isAnswerVisible && (
           <span className="text-text-dark-gray font-normal text-base mt-3 md:text-sm">
-            {answer}
+            <>{answer}</>
           </span>
         )}
       </span>

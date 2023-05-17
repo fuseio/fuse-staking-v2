@@ -149,28 +149,37 @@ const Stake = () => {
           </div>
           <div className="grid grid-cols-2 mt-10 gap-4 md:grid-cols-1">
             <InfoCard
-              size="large"
-              Header={new Intl.NumberFormat().format(
-                parseFloat(validator?.stakeAmount as string)
-              )}
-              Body="Staked Amount"
-              type={3}
+              Header={
+                new Intl.NumberFormat().format(
+                  parseFloat(validator?.stakeAmount as string)
+                ) + " FUSE"
+              }
+              Body={
+                "~$ " +
+                new Intl.NumberFormat().format(
+                  parseFloat(validator?.stakeAmount as string) *
+                    validators.fuseTokenUSDPrice
+                )
+              }
+              Footer="Staked Amount"
               isLoading={!validator}
+              size="large"
             />
             <InfoCard
               size="large"
               Header={new Intl.NumberFormat().format(
                 parseInt(validator?.delegatorsLength as string)
               )}
-              Body="Total Delegators"
-              type={3}
+              Footer="Total Delegators"
+              type={2}
               isLoading={!validator}
             />
             <InfoCard
               size="large"
               Header={validator?.uptime + "%"}
-              Body="Uptime"
-              type={3}
+              Body="&nbsp;"
+              Footer="Uptime"
+              type={2}
               isLoading={!validator}
             />
             <InfoCard
@@ -229,8 +238,8 @@ const Stake = () => {
             </div>
           )}
         </div>
-        <div className="w-[35%] ps-16 h-full pt-8 pb-6 md:w-full md:ps-0">
-          <StickyBox offsetTop={80}>
+        <div className="w-[35%] ps-16 pt-8 md:pb-6 md:w-full md:ps-0">
+          <StickyBox offsetTop={90}>
             <StakeCard
               validator={validator}
               closed={!validator?.forDelegation}

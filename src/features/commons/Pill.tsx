@@ -33,7 +33,7 @@ const Pill = ({ className = "", type, text, isLoading = false }: PillProps) => {
           : type === "error"
           ? "bg-error text-error-dark"
           : type === "inactive"
-          ? "bg-inactive text-inactive-dark"
+          ? "bg-inactive text-black"
           : "bg-warning text-warning-dark")
       }
     >

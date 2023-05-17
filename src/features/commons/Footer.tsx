@@ -4,6 +4,7 @@ import tele from "../../assets/tele.svg";
 import discord from "../../assets/discord.svg";
 import twitter from "../../assets/twitter.svg";
 import gh from "../../assets/gh.svg";
+import youtube from "../../assets/youtube.svg";
 import SubscribeBar from "./SubscribeBar";
 
 const Footer = () => {
@@ -13,13 +14,13 @@ const Footer = () => {
         <div className="flex justify-between w-full md:grid md:grid-cols-2 md:gap-x-9 md:gap-y-10 md:ps-5 md:w-9/10 max-w-7xl">
           <span className="flex">
             <a
-              href="https://medium.com/fuseio"
+              href="https://www.youtube.com/c/fusenetwork"
               target="_blank"
               rel="noreferrer"
             >
               <div className="flex">
-                <img src={medium} alt="medium" />
-                <span className="font-bold text-lg pt-1 ms-4">Medium</span>
+                <img src={youtube} alt="medium" />
+                <span className="font-bold text-lg pt-1 ms-4">YouTube</span>
               </div>
             </a>
           </span>
@@ -83,32 +84,32 @@ const Footer = () => {
             <div className="flex justify-between w-2/5 md:w-full">
               <div className="flex flex-col w-1/2">
                 <p className="font-bold">Getting Started</p>
-                <a href="https://studio.fuse.io/">
-                  <p className="text-text-dark-gray mt-4">Fuse Studio</p>
+                <a href="https://www.fuse.io/network">
+                  <p className="text-text-dark-gray mt-4">Fuse Network</p>
                 </a>
-                <a href="https://staking.fuse.io/">
-                  <p className="text-text-dark-gray mt-4">Fuse Staking</p>
+                <a href="https://www.fuse.io/mobile">
+                  <p className="text-text-dark-gray mt-4">Mobile Stack</p>
                 </a>
-                <a href="https://app.voltage.finance">
-                  <p className="text-text-dark-gray mt-4">Fuse Swap</p>
+                <a href="https://chargeweb3.com/">
+                  <p className="text-text-dark-gray mt-4">Fuse Charge</p>
                 </a>
-                <a href="https://cash.fuse.io">
-                  <p className="text-text-dark-gray mt-4">Fuse Cash</p>
+                <a href="https://voltage.finance/">
+                  <p className="text-text-dark-gray mt-4">Voltage Finance</p>
                 </a>
               </div>
               <div className="flex flex-col w-1/2">
                 <p className="font-bold">Under the hood</p>
-                <a href="https://www.fuse.io/network">
-                  <p className="text-text-dark-gray mt-4">Fuse Network</p>
-                </a>
-                <a href="https://www.fuse.io/network">
-                  <p className="text-text-dark-gray mt-4">Fuse Token</p>
-                </a>
                 <a href="https://explorer.fuse.io">
                   <p className="text-text-dark-gray mt-4">Explorer</p>
                 </a>
                 <a href="https://docs.fuse.io">
                   <p className="text-text-dark-gray mt-4">Documentation</p>
+                </a>
+                <a href="https://staking.fuse.io">
+                  <p className="text-text-dark-gray mt-4">Fuse Staking</p>
+                </a>
+                <a href="https://forum.fuse.io/">
+                  <p className="text-text-dark-gray mt-4">Governance</p>
                 </a>
                 <a href="https://status.fuse.io/">
                   <p className="text-text-dark-gray mt-4">Service Status</p>
@@ -117,9 +118,6 @@ const Footer = () => {
             </div>
             <div className="flex flex-col w-1/5 md:w-full md:mt-4">
               <p className="font-bold">General</p>
-              <a href="https://www.fuse.io">
-                <p className="text-text-dark-gray mt-4">About Us</p>
-              </a>
               <a href="https://fuse.cash/privacy-policy">
                 <p className="text-text-dark-gray mt-4">Privacy Policy</p>
               </a>

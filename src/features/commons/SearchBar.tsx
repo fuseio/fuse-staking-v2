@@ -9,11 +9,11 @@ const SearchBar = ({ className = "", onChange = () => {} }: SearchBarProps) => {
   return (
     <div
       className={
-        "h-12 flex items-center border border-gray rounded-full " + className
+        "flex items-center rounded-full " + className
       }
     >
       <input
-        className="w-full h-full px-6 text-sm font-medium rounded-full"
+        className="w-full h-full px-6 text-sm font-medium rounded-full py-4"
         placeholder="Search"
         onChange={onChange}
       />

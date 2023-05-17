@@ -7,8 +7,14 @@ import store from "./store/store";
 import { Web3OnboardProvider } from "@web3-onboard/react";
 import { web3Onboard } from "./utils/web3onboard";
 import { BrowserRouter } from "react-router-dom";
+import ReactGA from "react-ga4";
+import { CONFIG } from "./constants/config";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+ReactGA.initialize(CONFIG.GoogleAnalyticsId);
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Web3OnboardProvider web3Onboard={web3Onboard}>

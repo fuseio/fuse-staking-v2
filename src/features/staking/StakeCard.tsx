@@ -10,6 +10,8 @@ import {
 import { useConnectWallet } from "@web3-onboard/react";
 import { delegate, withdraw } from "../../utils/contractInteract";
 import { useAppDispatch, useAppSelector } from "../../store/store";
+import info from "../../assets/info-black.svg";
+
 type StakeCardProps = {
   className?: string;
   validator: ValidatorType | undefined;
@@ -211,9 +213,21 @@ const StakeCard = ({
         )}
       </div>
       <div className="flex justify-between mt-2">
-        <p className="text-sm font-semibold text-text-gray">
-          Projected Rewards (1y)
-        </p>
+        <div className="flex relative">
+          <p className="text-sm font-semibold text-text-gray">
+            Projected Rewards (1y)
+          </p>
+          <img
+            src={info}
+            alt="info"
+            className="peer mb-1 ms-1 cursor-pointer"
+          />
+          <div className="hidden absolute top-5 left-0 rounded-lg bg-white shadow-xl w-80 py-3 px-4 md:w-full peer-hover:block text-sm z-50">
+            The rewards displayed are estimates. Actual rewards depend on the
+            total locked supply in the network at each checkpoint, which may
+            vary as more FUSE tokens are staked.
+          </div>
+        </div>
 
         {validator ? (
           <p className="text-sm font-semibold text-[#071927]">
