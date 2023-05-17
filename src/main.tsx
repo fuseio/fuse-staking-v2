@@ -8,6 +8,7 @@ import { Web3OnboardProvider } from "@web3-onboard/react";
 import { web3Onboard } from "./utils/web3onboard";
 import { BrowserRouter } from "react-router-dom";
 import ReactGA from "react-ga4";
+import { YMInitializer } from "react-yandex-metrika";
 import { CONFIG } from "./constants/config";
 
 const root = ReactDOM.createRoot(
@@ -19,6 +20,7 @@ root.render(
     <BrowserRouter>
       <Web3OnboardProvider web3Onboard={web3Onboard}>
         <Provider store={store}>
+          <YMInitializer accounts={[CONFIG.YandexMetrikaId]} />
           <App />
         </Provider>
       </Web3OnboardProvider>

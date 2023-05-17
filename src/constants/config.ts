@@ -4,4 +4,5 @@ export const CONFIG = {
     fuseRPC: "https://rpc.fuse.io",
     bootApi: "https://bot.fuse.io/api/v1",
     GoogleAnalyticsId: "G-LHHHX57LEJ",
+    YandexMetrikaId: 93593360,
 }

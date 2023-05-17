@@ -31,11 +31,6 @@ const wcV1InitOptions = {
     },
     connectFirstChainId: true
 }
-// const wcV2InitOptions = {
-//     version: 2,
-//     projectId: 'abc123...',
-//     handleUri: (uri: string) => console.log(uri)
-// }
 const walletConnect = walletConnectModule(wcV1InitOptions)
 const uauth = uauthModule({
     clientID: 'YOUR_CLIENT_ID',
@@ -77,6 +72,12 @@ const chains = [fuse]
 const wallets = [
     injectedModule(),
     coinbaseWalletSdk,
+    walletConnect,
+    web3auth,
+    torus,
+    portis,
+    ledger,
+    trezor,
     frontier,
     dcent,
     enrkyptModule,
@@ -84,13 +85,7 @@ const wallets = [
     gnosis,
     infinityWalletSDK,
     keepkey,
-    portis,
-    ledger,
-    torus,
-    trezor,
-    uauth,
-    walletConnect,
-    web3auth
+    uauth
 ]
 
 export const web3Onboard = init({

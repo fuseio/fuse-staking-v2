@@ -12,6 +12,7 @@ import { delegate, withdraw } from "../../utils/contractInteract";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import info from "../../assets/info-black.svg";
 import ConnectWallet from "../commons/ConnectWallet";
+import ReactGA from "react-ga4";
 
 type StakeCardProps = {
   className?: string;
@@ -264,6 +265,11 @@ const StakeCard = ({
                       validators: [validator?.address as string],
                     })
                   );
+                  ReactGA.event({
+                    category: "Stake",
+                    action: "Staked",
+                    value: getAmount(),
+                  });
                   setAmount("0");
                   setIsLoading(false);
                   updateBalances();
@@ -282,6 +288,11 @@ const StakeCard = ({
                       validators: [validator?.address as string],
                     })
                   );
+                  ReactGA.event({
+                    category: "Unstake",
+                    action: "Unstaked",
+                    value: getAmount(),
+                  });
                   setAmount("0");
                   setIsLoading(false);
                   updateBalances();
