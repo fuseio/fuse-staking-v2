@@ -94,10 +94,11 @@ const ValidatorsPane = ({
         })}
       </div>
       {validatorsToDisplay.length === 0 && selected === 1 && (
-        <div className="flex flex-col w-full items-center">
+        <div className="flex flex-col w-full items-center justify-center">
           <img src={coins} alt="coins" className="mt-28" />
-          <p className="text-2xl font-black text-fuse-black mt-3">
-            You don’t have staked
+          <p className="text-2xl font-black text-fuse-black mt-3 w-1/2 text-center md:w-full">
+            No staked validators yet! Begin your staking journey by delegating
+            tokens to a validator of your choice.
           </p>
         </div>
       )}
