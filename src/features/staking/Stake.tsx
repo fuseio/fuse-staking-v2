@@ -242,7 +242,7 @@ const Stake = () => {
           <StickyBox offsetTop={90}>
             <StakeCard
               validator={validator}
-              closed={!validator?.forDelegation}
+              closed={validator?.forDelegation ? false : true}
             />
           </StickyBox>
         </div>

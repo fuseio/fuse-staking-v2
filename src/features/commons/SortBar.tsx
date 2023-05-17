@@ -21,7 +21,10 @@ const SortBar = ({
         className="flex items-center py-4 px-5 justify-between bg-white rounded-full w-full"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="font-medium text-sm">Sort By:</span>
+        <span className="font-medium text-sm">
+          Sort By: {options[selected].slice(0, 18)}
+          {options[selected].length > 18 && "..."}
+        </span>
         <img src={sort} alt="sort" />
       </div>
       {isOpen && (

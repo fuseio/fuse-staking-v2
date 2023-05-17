@@ -12,10 +12,6 @@ const ConnectWallet = () => {
     setWeb3OnboardProvider(wallet?.provider);
     dispatch(fetchValidators());
   }, [wallet]);
-
-  useEffect(() => {
-    console.log("wallet", wallet?.provider);
-  }, [wallet]);
   return (
     <button
       className="bg-fuse-black text-white px-4 py-2 rounded-full font-medium md:text-sm"

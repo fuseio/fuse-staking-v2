@@ -23,6 +23,14 @@ const StakeCard = ({
   closed = false,
 }: StakeCardProps) => {
   const [cardMode, setCardMode] = React.useState(closed ? 1 : 0);
+  useEffect(() => {
+    if (closed) {
+      setCardMode(1);
+    } else {
+      setCardMode(0);
+    }
+  }, [closed]);
+
   const setMode = (mode: number) => {
     if (closed) return;
     setCardMode(mode);

@@ -310,7 +310,7 @@ const Home = () => {
             }}
           />
           <SortBar
-            className="w-1/6 md:w-full md:mt-4"
+            className="w-1/5 md:w-full md:mt-4"
             options={[
               "Highest Stake",
               "Highest Delegators",
