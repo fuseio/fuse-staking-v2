@@ -4,7 +4,7 @@ import { setWeb3OnboardProvider } from "../../utils/provider";
 import { useAppDispatch } from "../../store/store";
 import { fetchValidators } from "../../store/validatorSlice";
 
-const ConnectWallet = () => {
+const ConnectWallet = ({ className = "" }: { className?: string }) => {
   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
 
   const dispatch = useAppDispatch();
@@ -14,7 +14,10 @@ const ConnectWallet = () => {
   }, [wallet]);
   return (
     <button
-      className="bg-fuse-black text-white px-4 py-2 rounded-full font-medium md:text-sm"
+      className={
+        "bg-fuse-black text-white px-4 py-2 rounded-full font-medium md:text-sm " +
+        className
+      }
       onClick={() => {
         wallet ? disconnect(wallet) : connect();
       }}

@@ -11,6 +11,7 @@ import { useConnectWallet } from "@web3-onboard/react";
 import { delegate, withdraw } from "../../utils/contractInteract";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import info from "../../assets/info-black.svg";
+import ConnectWallet from "../commons/ConnectWallet";
 
 type StakeCardProps = {
   className?: string;
@@ -35,7 +36,7 @@ const StakeCard = ({
     if (closed) return;
     setCardMode(mode);
   };
-  const [amount, setAmount] = React.useState<number | null>(null);
+  const [amount, setAmount] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [{ wallet }, connect, disconnect, updateBalances] = useConnectWallet();
   const [balance, setBalance] = React.useState<number>(0.0);
@@ -79,20 +80,25 @@ const StakeCard = ({
       if (validator?.selfStakeAmount)
         setReward(
           getPredictedReward(
-            parseFloat(validator.selfStakeAmount) + (amount as number)
+            parseFloat(validator.selfStakeAmount) + getAmount()
           )
         );
-      else setReward(getPredictedReward(amount as number));
+      else setReward(getPredictedReward(getAmount()));
     } else {
       if (validator?.selfStakeAmount)
         setReward(
           getPredictedReward(
-            parseFloat(validator.selfStakeAmount) - (amount as number)
+            parseFloat(validator.selfStakeAmount) - getAmount()
           )
         );
-      else setReward(getPredictedReward(amount as number));
+      else setReward(getPredictedReward(getAmount()));
     }
   }, [amount]);
+
+  const getAmount = () => {
+    if (isNaN(parseFloat(amount as string))) return 0;
+    return parseFloat(amount as string);
+  };
 
   const validatorSlice = useAppSelector(selectValidatorSlice);
   return (
@@ -106,7 +112,7 @@ const StakeCard = ({
           }
           onClick={() => {
             setMode(0);
-            setAmount(0);
+            setAmount("0");
           }}
         >
           Stake
@@ -118,7 +124,7 @@ const StakeCard = ({
               : "font-bold text-inactive ms-5 cursor-pointer"
           }
           onClick={() => {
-            setAmount(0);
+            setAmount("0");
             setMode(1);
           }}
         >
@@ -143,18 +149,7 @@ const StakeCard = ({
             placeholder="0.0"
             value={amount ? amount.toString() : ""}
             onChange={(e) => {
-              const amt = parseFloat(e.target.value);
-              if (isNaN(amt)) {
-                setAmount(0);
-              } else {
-                if (
-                  cardMode === 1 &&
-                  amt > parseFloat(validator?.selfStakeAmount as string)
-                ) {
-                  return;
-                }
-                setAmount(amt);
-              }
+              setAmount(e.target.value);
             }}
           />
           <div className="w-2/12 flex justify-end">
@@ -164,11 +159,9 @@ const StakeCard = ({
               padding="px-[8px] py-[6px] "
               onClick={() => {
                 if (cardMode === 0) {
-                  setAmount(balance);
+                  setAmount(balance.toString());
                 } else {
-                  setAmount(
-                    parseFloat(validator?.selfStakeAmount as string) || 0
-                  );
+                  setAmount(validator?.selfStakeAmount as string);
                 }
               }}
             />
@@ -195,7 +188,7 @@ const StakeCard = ({
           {cardMode === 0 ? "New Stake" : "Removed Stake"}
         </p>
         <p className="text-sm font-semibold text-[#071927]">
-          {new Intl.NumberFormat().format(amount as number)} FUSE
+          {new Intl.NumberFormat().format(getAmount())} FUSE
         </p>
       </div>
       <hr className="w-full h-[0.5px] border-[#D1D1D1] my-3" />
@@ -206,14 +199,14 @@ const StakeCard = ({
             {cardMode === 0
               ? validator.selfStakeAmount
                 ? new Intl.NumberFormat().format(
-                    (amount as number) + parseFloat(validator.selfStakeAmount)
+                    getAmount() + parseFloat(validator.selfStakeAmount)
                   )
-                : new Intl.NumberFormat().format(amount as number)
+                : new Intl.NumberFormat().format(getAmount())
               : validator.selfStakeAmount
               ? new Intl.NumberFormat().format(
-                  parseFloat(validator.selfStakeAmount) - (amount as number)
+                  parseFloat(validator.selfStakeAmount) - getAmount()
                 )
-              : new Intl.NumberFormat().format(amount as number)}{" "}
+              : new Intl.NumberFormat().format(getAmount())}{" "}
             FUSE
           </p>
         ) : (
@@ -223,7 +216,8 @@ const StakeCard = ({
       <div className="flex justify-between mt-2">
         <div className="flex relative">
           <p className="text-sm font-semibold text-text-gray">
-            Projected Rewards (1y)
+            Projected
+            <br className="hidden md:block" /> Rewards (1y)
           </p>
           <img
             src={info}
@@ -238,8 +232,9 @@ const StakeCard = ({
         </div>
 
         {validator ? (
-          <p className="text-sm font-semibold text-[#071927]">
+          <p className="text-sm font-semibold text-[#071927] text-right">
             {new Intl.NumberFormat().format(reward)} FUSE
+            <br className="hidden md:block" />
             <span className="text-[#66E070]">
               {" (+"}
               {(getPredictedIncrease() * 100).toFixed(1)}
@@ -250,58 +245,57 @@ const StakeCard = ({
           <span className="ms-2 px-11 py-1 bg-dark-gray rounded-lg animate-pulse" />
         )}
       </div>
-      <Button
-        text={isLoading ? "Loading..." : cardMode === 0 ? "Stake" : "Unstake"}
-        className="bg-black font-medium text-white mt-6 rounded-full"
-        disabled={isLoading}
-        onClick={() => {
-          if (!wallet) return;
-          if (!validator) return;
-          if (cardMode === 0) {
-            setIsLoading(true);
-            delegate(
-              (amount as number).toString(),
-              validator?.address as string
-            )
-              .then(() => {
-                dispatch(
-                  fetchSelfStake({
-                    address: wallet.accounts[0].address,
-                    validators: [validator?.address as string],
-                  })
-                );
-                setAmount(0);
-                setIsLoading(false);
-                updateBalances();
-              })
-              .catch((e) => {
-                console.log(e);
-                setIsLoading(false);
-              });
-          } else {
-            setIsLoading(true);
-            withdraw(
-              (amount as number).toString(),
-              validator?.address as string
-            )
-              .then(() => {
-                dispatch(
-                  fetchSelfStake({
-                    address: wallet.accounts[0].address,
-                    validators: [validator?.address as string],
-                  })
-                );
-                setAmount(0);
-                setIsLoading(false);
-                updateBalances();
-              })
-              .catch((e) => {
-                console.log(e);
-                setIsLoading(false);
-              });
-          }
-        }}
-      />
+      {wallet ? (
+        <Button
+          text={isLoading ? "Loading..." : cardMode === 0 ? "Stake" : "Unstake"}
+          className="bg-black font-medium text-white mt-6 rounded-full"
+          disabled={isLoading}
+          onClick={() => {
+            if (!wallet) return;
+            if (!validator) return;
+            if (getAmount() === 0) return;
+            if (cardMode === 0) {
+              setIsLoading(true);
+              delegate(getAmount().toString(), validator?.address as string)
+                .then(() => {
+                  dispatch(
+                    fetchSelfStake({
+                      address: wallet.accounts[0].address,
+                      validators: [validator?.address as string],
+                    })
+                  );
+                  setAmount("0");
+                  setIsLoading(false);
+                  updateBalances();
+                })
+                .catch((e) => {
+                  console.log(e);
+                  setIsLoading(false);
+                });
+            } else {
+              setIsLoading(true);
+              withdraw(getAmount().toString(), validator?.address as string)
+                .then(() => {
+                  dispatch(
+                    fetchSelfStake({
+                      address: wallet.accounts[0].address,
+                      validators: [validator?.address as string],
+                    })
+                  );
+                  setAmount("0");
+                  setIsLoading(false);
+                  updateBalances();
+                })
+                .catch((e) => {
+                  console.log(e);
+                  setIsLoading(false);
+                });
+            }
+          }}
+        />
+      ) : (
+        <ConnectWallet className="mt-6" />
+      )}
     </div>
   );
 };
