@@ -11,17 +11,18 @@ import walletConnectModule from '@web3-onboard/walletconnect'
 import web3authModule from '@web3-onboard/web3auth'
 
 
-const web3auth = web3authModule({
-    clientId:
-        import.meta.env.VITE_WEB3AUTH_CLIENTID as string,
-    chainConfig: {
-        chainId: '0x7A',
-        chainNamespace: 'eip155',
-        displayName: 'Fuse',
-        blockExplorer: 'https://explorer.fuse.io',
-        rpcTarget: 'https://rpc.fuse.io',
-    }
-})
+// const web3auth = web3authModule({
+//     clientId:
+//         import.meta.env.VITE_WEB3AUTH_CLIENTID as string,
+//     chainConfig: {
+//         chainId: '0x7A',
+//         chainNamespace: 'eip155',
+//         displayName: 'Fuse',
+//         blockExplorer: 'https://explorer.fuse.io',
+//         rpcTarget: 'https://rpc.fuse.io',
+//     }
+// })
+
 const walletConnect = walletConnectModule({
     bridge: 'https://walletconnect.fuse.io',
     version: 1,
@@ -49,7 +50,6 @@ const wallets = [
     injectedModule(),
     coinbaseWalletSdk,
     walletConnect,
-    web3auth,
     torus,
     ledger,
     trezor,
