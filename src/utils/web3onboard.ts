@@ -75,7 +75,7 @@ export const web3Onboard = init({
         }
     },
     connect: {
-        iDontHaveAWalletLink: 'https://fuse.io/',
+        iDontHaveAWalletLink: 'https://fuse.io/ecosystem',
         disableUDResolution: true,
         autoConnectLastWallet: true,
     }
