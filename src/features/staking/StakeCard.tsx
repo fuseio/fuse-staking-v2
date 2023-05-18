@@ -113,7 +113,7 @@ const StakeCard = ({
           }
           onClick={() => {
             setMode(0);
-            setAmount("0");
+            setAmount(null);
           }}
         >
           Stake
@@ -125,7 +125,7 @@ const StakeCard = ({
               : "font-bold text-inactive ms-5 cursor-pointer"
           }
           onClick={() => {
-            setAmount("0");
+            setAmount(null);
             setMode(1);
           }}
         >
@@ -270,7 +270,7 @@ const StakeCard = ({
                     action: "Staked",
                     value: getAmount(),
                   });
-                  setAmount("0");
+                  setAmount(null);
                   setIsLoading(false);
                   updateBalances();
                 })
@@ -293,7 +293,7 @@ const StakeCard = ({
                     action: "Unstaked",
                     value: getAmount(),
                   });
-                  setAmount("0");
+                  setAmount(null);
                   setIsLoading(false);
                   updateBalances();
                 })
