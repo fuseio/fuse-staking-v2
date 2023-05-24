@@ -44,6 +44,7 @@ module.exports = {
       "success-dark": "#0A7500",
       "inactive-dark": "#E5E5E6",
       "button-inactive": "#808080",
+      "stake-inactive": "#B3B3B3",
     },
     fontFamily: {
       mona: ["Mona-Sans"],

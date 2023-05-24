@@ -109,7 +109,7 @@ const StakeCard = ({
           className={
             cardMode === 0
               ? "font-bold cursor-pointer"
-              : "font-bold text-inactive cursor-pointer"
+              : "font-bold text-stake-inactive cursor-pointer"
           }
           onClick={() => {
             setMode(0);
@@ -122,7 +122,7 @@ const StakeCard = ({
           className={
             cardMode === 1
               ? "font-bold ms-5 cursor-pointer"
-              : "font-bold text-inactive ms-5 cursor-pointer"
+              : "font-bold text-stake-inactive ms-5 cursor-pointer"
           }
           onClick={() => {
             setAmount(null);
