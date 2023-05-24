@@ -30,7 +30,7 @@ const SubscribeBar = ({
           name="EMAIL"
           id="mce-EMAIL"
         />
-        <input type="hidden" name="tags" value="13473456" />
+        <input type="hidden" name="tags" value="13473456" readOnly />
         <div
           style={{ position: "absolute", left: "-5000px" }}
           aria-hidden="true"
@@ -40,6 +40,7 @@ const SubscribeBar = ({
             name="b_32f2983d12ae44ce73e66f86c_2acb371a54"
             tabIndex={-1}
             value=""
+            readOnly
           />
         </div>
         <Button

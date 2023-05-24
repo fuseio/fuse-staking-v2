@@ -245,7 +245,9 @@ const Home = () => {
           <InfoCard
             Header={
               new Intl.NumberFormat().format(
-                parseFloat(validatorSlice.totalStakeAmount)
+                parseFloat(
+                  parseFloat(validatorSlice.totalStakeAmount).toFixed(1)
+                )
               ) + " FUSE"
             }
             Body={

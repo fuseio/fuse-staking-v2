@@ -81,3 +81,9 @@ export const getDelegatedAmount = async (delegator: string, validator: string) =
     const delegatedAmount = await contract.delegatedAmount(delegator, validator)
     return ethers.formatEther(delegatedAmount)
 }
+
+export const getMaxStake = async () => {
+    const contract = getConsensusContract(web3OnboardProvider)
+    const maxStake = await contract.getMaxStake()
+    return ethers.formatEther(maxStake)
+}
