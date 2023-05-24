@@ -186,7 +186,7 @@ const StakeCard = ({
       </div>
       <div className="flex justify-between mt-2">
         <p className="text-sm font-semibold text-text-gray">
-          {cardMode === 0 ? "New Stake" : "Removed Stake"}
+          {cardMode === 0 ? "Added Stake" : "Removed Stake"}
         </p>
         <p className="text-sm font-semibold text-[#071927]">
           {new Intl.NumberFormat().format(getAmount())} FUSE

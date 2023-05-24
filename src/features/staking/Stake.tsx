@@ -145,8 +145,8 @@ const Stake = () => {
   return (
     <div className="w-full bg-light-gray flex flex-col items-center">
       <Breadcrumb
-        links={["/"]}
-        states={["Fuse Staking", validator?.name || "Validator"]}
+        links={[]}
+        states={[validator?.name || "Validator"]}
         className="w-8/9 mt-4 md:w-9/10 max-w-7xl"
       />
       <Modal
