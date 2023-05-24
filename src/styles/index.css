@@ -35,3 +35,54 @@
     opacity: 1;
   }
 }
+
+
+/* :root {
+	
+  --account-center-position-right:0px;
+} */
+
+
+
+#wrapper-el{
+  height: 80px;
+  position: absolute;
+  display: flex;
+  top: 0;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  }
+  #container-el{
+  position: relative;
+  display: flex;
+  max-width: 1280px;
+  width:100%;
+  height: 100%;
+  justify-content: flex-end;
+  padding-top: 10px;
+  overflow: hidden;
+  }
+  #onboard-container{
+    position: absolute;
+    right: 315.77px;
+    z-index: 300;
+  }
+  
+  @media (max-width: 767px) {
+    #container-el {
+        display: none;
+    }
+  }
+  :root {
+      --account-center-z-index:300;
+      --account-center-minimized-background:black;
+      --account-center-minimized-address-color:#ffff;
+      --account-center-maximized-upper-background:#ffff;
+      --account-center-maximized-info-section-hover:black;
+      --account-center-minimized-balance-color:#ffff;
+      --account-center-background:black;
+  }
+  /* .wallets-section.svelte-1dn0ske{
+    background-color: black;
+  } */
