@@ -109,11 +109,11 @@ const StakeCard = ({
           className={
             cardMode === 0
               ? "font-bold cursor-pointer"
-              : "font-bold text-inactive cursor-pointer"
+              : "font-bold text-stake-inactive cursor-pointer"
           }
           onClick={() => {
             setMode(0);
-            setAmount("0");
+            setAmount(null);
           }}
         >
           Stake
@@ -122,10 +122,10 @@ const StakeCard = ({
           className={
             cardMode === 1
               ? "font-bold ms-5 cursor-pointer"
-              : "font-bold text-inactive ms-5 cursor-pointer"
+              : "font-bold text-stake-inactive ms-5 cursor-pointer"
           }
           onClick={() => {
-            setAmount("0");
+            setAmount(null);
             setMode(1);
           }}
         >
@@ -186,7 +186,7 @@ const StakeCard = ({
       </div>
       <div className="flex justify-between mt-2">
         <p className="text-sm font-semibold text-text-gray">
-          {cardMode === 0 ? "New Stake" : "Removed Stake"}
+          {cardMode === 0 ? "Added Stake" : "Removed Stake"}
         </p>
         <p className="text-sm font-semibold text-[#071927]">
           {new Intl.NumberFormat().format(getAmount())} FUSE
@@ -270,7 +270,7 @@ const StakeCard = ({
                     action: "Staked",
                     value: getAmount(),
                   });
-                  setAmount("0");
+                  setAmount(null);
                   setIsLoading(false);
                   updateBalances();
                 })
@@ -293,7 +293,7 @@ const StakeCard = ({
                     action: "Unstaked",
                     value: getAmount(),
                   });
-                  setAmount("0");
+                  setAmount(null);
                   setIsLoading(false);
                   updateBalances();
                 })

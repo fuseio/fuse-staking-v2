@@ -93,7 +93,7 @@ const ValidatorCard = ({
         )}
       </div>
       <div className="flex justify-between pt-3">
-        <p className="text-base font-normal text-text-gray">Total Delagators</p>
+        <p className="text-base font-normal text-text-gray">Total Delegators</p>
         {isLoading ? (
           <span className="px-5 bg-dark-gray rounded-md animate-pulse"></span>
         ) : (

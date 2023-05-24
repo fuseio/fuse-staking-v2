@@ -42,11 +42,16 @@ export const fetchValidatorData = async (address: string) => {
     const contract = getConsensusContract(web3OnboardProvider)
     const stakeAmount = await contract.stakeAmount(address)
     const fee = await contract.validatorFee(address)
-    const delegatorsLength = await contract.delegatorsLength(address)
+    let delegators: Array<Array<string>> = []
+    const delegatorsMap: Map<number, string> = await contract.delegators(address)
+    delegatorsMap.forEach((value, _) => {
+        delegators.push([value, "0"])
+    })
     return {
         stakeAmount: ethers.formatEther(stakeAmount),
         fee: formatUnits(fee, 16),
-        delegatorsLength: formatUnits(delegatorsLength, 0)
+        delegatorsLength: delegators.length.toString(),
+        delegators
     }
 }
 
@@ -69,4 +74,10 @@ export const withdraw = async (amount: string, validator: string) => {
     const tx = await contract.withdraw(validator, ethers.parseEther(amount).toString())
     await tx.wait()
     return tx.hash
+}
+
+export const getDelegatedAmount = async (delegator: string, validator: string) => {
+    const contract = getConsensusContract(web3OnboardProvider)
+    const delegatedAmount = await contract.delegatedAmount(delegator, validator)
+    return ethers.formatEther(delegatedAmount)
 }

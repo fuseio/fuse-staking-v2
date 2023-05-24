@@ -218,8 +218,8 @@ const Home = () => {
   return (
     <div className="w-full bg-light-gray flex flex-col items-center">
       <Breadcrumb
-        links={["/"]}
-        states={["Fuse Staking"]}
+        links={[]}
+        states={[]}
         className="w-8/9 mt-4 md:w-9/10 max-w-7xl"
       />
       <div className="w-8/9 flex flex-col mt-8 md:w-9/10 max-w-7xl">
