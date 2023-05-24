@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { AppState } from '../rootReducer'
-import { getDelegatedAmount, fetchValidatorData, getJailedValidators, getStake, getTotalStakeAmount, getValidators } from '../../utils/contractInteract'
+import { getDelegatedAmount, fetchValidatorData, getJailedValidators, getStake, getTotalStakeAmount, getValidators, getMaxStake } from '../../utils/contractInteract'
 import Validators from '../../validators/validators.json'
-import { fetchFuseTokenData, fetchNodeByAddress, fetchTokenPrice, fetchTotalSupply } from '../../utils/api'
+import { fetchNodeByAddress, fetchTokenPrice, fetchTotalSupply } from '../../utils/api'
 
 export interface ValidatorType {
     address: string
@@ -36,6 +36,7 @@ export interface ValidatorStateType {
     totalDelegators: number
     fuseTokenUSDPrice: number
     fuseTokenTotalSupply: number
+    maxStakeAmount: string
 }
 
 const INIT_STATE: ValidatorStateType = {
@@ -51,7 +52,8 @@ const INIT_STATE: ValidatorStateType = {
     isBalanceLoading: false,
     fuseTokenUSDPrice: 0,
     fuseTokenTotalSupply: 0,
-    isDelegatedAmountLoading: false
+    isDelegatedAmountLoading: false,
+    maxStakeAmount: '0'
 }
 
 export const fetchValidators = createAsyncThunk(
@@ -63,13 +65,14 @@ export const fetchValidators = createAsyncThunk(
                     const jailedValidators = await getJailedValidators()
                     validators = validators.concat(jailedValidators)
                     const fuseTokenTotalSupply = await fetchTotalSupply()
+                    const maxStake = await getMaxStake()
                     let price: number = 0
                     fetchTokenPrice().then(data => {
                         price = data
-                        resolve({ totalStakeAmount, validators, price, fuseTokenTotalSupply })
+                        resolve({ totalStakeAmount, validators, price, fuseTokenTotalSupply, maxStake })
                     }).catch((e) => {
                         price = 0
-                        resolve({ totalStakeAmount, validators, price, fuseTokenTotalSupply })
+                        resolve({ totalStakeAmount, validators, price, fuseTokenTotalSupply, maxStake })
                     })
                 }).catch((error) => {
                     reject(error)
@@ -180,6 +183,7 @@ const validatorSlice = createSlice({
             state.validators = payload.validators
             state.fuseTokenUSDPrice = payload.price
             state.fuseTokenTotalSupply = payload.fuseTokenTotalSupply
+            state.maxStakeAmount = payload.maxStake
         },
         [fetchValidators.rejected.toString()]: (state, { error }) => {
             state.isLoading = false
@@ -240,9 +244,6 @@ const validatorSlice = createSlice({
 })
 
 export const selectValidatorSlice = (state: AppState): ValidatorStateType => state.validator
-export const selectValidatorMetadata = (state: AppState, address: string): ValidatorType =>
-    state.validator.validatorMetadata.filter(
-        (validator) => validator.address === address
-    )[0]
+export const selectMaxStake = (state: AppState): string => state.validator.maxStakeAmount
 
 export default validatorSlice.reducer

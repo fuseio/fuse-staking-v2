@@ -4,7 +4,7 @@ import Button from "../commons/Button";
 import {
   ValidatorType,
   fetchSelfStake,
-  selectValidatorMetadata,
+  selectMaxStake,
   selectValidatorSlice,
 } from "../../store/validatorSlice";
 import { useConnectWallet } from "@web3-onboard/react";
@@ -25,6 +25,7 @@ const StakeCard = ({
   closed = false,
 }: StakeCardProps) => {
   const [cardMode, setCardMode] = React.useState(closed ? 1 : 0);
+  const maxStake = useAppSelector(selectMaxStake);
   useEffect(() => {
     if (closed) {
       setCardMode(1);
@@ -160,7 +161,8 @@ const StakeCard = ({
               padding="px-[8px] py-[6px] "
               onClick={() => {
                 if (cardMode === 0) {
-                  setAmount(balance.toString());
+                  if (balance < 0.1) return;
+                  setAmount((balance - 0.1).toString());
                 } else {
                   setAmount(validator?.selfStakeAmount as string);
                 }
@@ -248,13 +250,28 @@ const StakeCard = ({
       </div>
       {wallet ? (
         <Button
-          text={isLoading ? "Loading..." : cardMode === 0 ? "Stake" : "Unstake"}
+          text={
+            isLoading
+              ? "Loading..."
+              : cardMode === 0 &&
+                parseFloat(validator?.stakeAmount || "0") + getAmount() >
+                  parseFloat(maxStake)
+              ? "Maximum Stake Reached"
+              : cardMode === 0
+              ? "Stake"
+              : "Unstake"
+          }
           className="bg-black font-medium text-white mt-6 rounded-full"
           disabled={isLoading}
           onClick={() => {
             if (!wallet) return;
             if (!validator) return;
             if (getAmount() === 0) return;
+            if (
+              parseFloat(validator?.stakeAmount || "0") + getAmount() >
+              parseFloat(maxStake)
+            )
+              return;
             if (cardMode === 0) {
               setIsLoading(true);
               delegate(getAmount().toString(), validator?.address as string)

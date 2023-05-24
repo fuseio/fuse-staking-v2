@@ -46,6 +46,7 @@ const ValidatorsPane = ({
               onClick={() => {
                 onClick(index);
               }}
+              key={index}
             >
               {filter}
             </p>
@@ -69,7 +70,7 @@ const ValidatorsPane = ({
               />
             );
           })}
-        {validatorsToDisplay.map((validator) => {
+        {validatorsToDisplay.map((validator, i) => {
           return (
             <ValidatorCard
               name={
@@ -85,7 +86,7 @@ const ValidatorsPane = ({
               status={validator.status as string}
               image={validator.image}
               address={validator.address}
-              key={validator.address}
+              key={i}
               firstSeen={validator.firstSeen as string}
               totalDelegators={validator.delegatorsLength}
               uptime={validator.uptime?.toFixed(2)}
