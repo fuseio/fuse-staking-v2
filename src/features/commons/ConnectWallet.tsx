@@ -12,10 +12,11 @@ const ConnectWallet = ({ className = "" }: { className?: string }) => {
     setWeb3OnboardProvider(wallet?.provider);
     dispatch(fetchValidators());
   }, [wallet]);
+  
   return (
     <button
       className={
-        "bg-fuse-black text-white px-4 py-2 rounded-full font-medium md:text-sm " +
+       wallet ? 'hidden': "bg-fuse-black text-white px-4 py-2  rounded-full font-medium md:text-sm " +
         className
       }
       onClick={() => {

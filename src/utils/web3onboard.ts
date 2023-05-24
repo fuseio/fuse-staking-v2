@@ -9,6 +9,8 @@ import torusModule from '@web3-onboard/torus'
 import trezorModule from '@web3-onboard/trezor'
 import walletConnectModule from '@web3-onboard/walletconnect'
 import web3authModule from '@web3-onboard/web3auth'
+import transactionPreviewModule from '@web3-onboard/transaction-preview'
+
 
 
 // const web3auth = web3authModule({
@@ -22,6 +24,7 @@ import web3authModule from '@web3-onboard/web3auth'
 //         rpcTarget: 'https://rpc.fuse.io',
 //     }
 // })
+const transactionPreview = transactionPreviewModule({})
 
 const walletConnect = walletConnectModule({
     bridge: 'https://walletconnect.fuse.io',
@@ -56,6 +59,7 @@ const wallets = [
 ]
 
 export const web3Onboard = init({
+    transactionPreview,
     wallets,
     chains,
     appMetadata: {
@@ -67,16 +71,17 @@ export const web3Onboard = init({
     accountCenter: {
         desktop: {
             enabled: true,
-            position: 'bottomRight',
         },
         mobile: {
             enabled: true,
-            position: 'bottomRight',
         }
     },
     connect: {
         iDontHaveAWalletLink: 'https://fuse.io/ecosystem',
         disableUDResolution: true,
         autoConnectLastWallet: true,
+    },
+    containerElements: {
+        accountCenter: '#onboard-container'
     }
 })

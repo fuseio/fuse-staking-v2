@@ -22,6 +22,7 @@
     "@web3-onboard/ledger": "^2.4.3",
     "@web3-onboard/react": "^2.8.2",
     "@web3-onboard/torus": "^2.2.4",
+    "@web3-onboard/transaction-preview": "^2.0.8",
     "@web3-onboard/trezor": "^2.3.4",
     "@web3-onboard/walletconnect": "^2.3.3",
     "@web3-onboard/web3auth": "^2.2.0",
