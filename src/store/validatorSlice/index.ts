@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { AppState } from '../rootReducer'
-import { fetchValidatorData, getJailedValidators, getStake, getTotalStakeAmount, getValidators } from '../../utils/contractInteract'
+import { getDelegatedAmount, fetchValidatorData, getJailedValidators, getStake, getTotalStakeAmount, getValidators } from '../../utils/contractInteract'
 import Validators from '../../validators/validators.json'
 import { fetchFuseTokenData, fetchNodeByAddress, fetchTokenPrice, fetchTotalSupply } from '../../utils/api'
 
@@ -9,6 +9,7 @@ export interface ValidatorType {
     stakeAmount: string
     fee: string
     delegatorsLength: string
+    delegators: Array<Array<string>>
     selfStakeAmount?: string
     name?: string
     website?: string
@@ -29,6 +30,7 @@ export interface ValidatorStateType {
     isLoading: boolean
     isMetadataLoading: boolean
     isBalanceLoading: boolean
+    isDelegatedAmountLoading: boolean
     isError: boolean
     errorMessage: string
     totalDelegators: number
@@ -48,7 +50,8 @@ const INIT_STATE: ValidatorStateType = {
     errorMessage: '',
     isBalanceLoading: false,
     fuseTokenUSDPrice: 0,
-    fuseTokenTotalSupply: 0
+    fuseTokenTotalSupply: 0,
+    isDelegatedAmountLoading: false
 }
 
 export const fetchValidators = createAsyncThunk(
@@ -96,7 +99,7 @@ export const fetchValidatorMetadata = createAsyncThunk(
                         name: validatorData?.name ? validatorData?.name : validator,
                         website: validatorData?.website,
                         image: validatorData?.image,
-                        status
+                        status,
                     })
                 } else {
                     let apiMetadata = await fetchNodeByAddress(validator)
@@ -142,6 +145,24 @@ export const fetchSelfStake = createAsyncThunk(
         })
     }
 )
+
+export const fetchDelegatedAmounts = createAsyncThunk(
+    'VALIDATORS/FETCH_DELEGATED_AMOUNTS',
+    async ({ address, delegators }: { address: string, delegators: string[] }, thunkAPI) => {
+        return new Promise<any>(async (resolve, reject) => {
+            let delegatedAmounts: Array<Array<string>> = []
+            Promise.all(delegators.map(async (delegator) => {
+                const delegatedAmount = await getDelegatedAmount(delegator, address)
+                delegatedAmounts.push([delegator, delegatedAmount])
+            })).then(() => {
+                resolve({ delegatedAmounts, address })
+            }).catch((error) => {
+                reject(error)
+            })
+        })
+    }
+)
+
 
 
 
@@ -194,6 +215,24 @@ const validatorSlice = createSlice({
         },
         [fetchSelfStake.rejected.toString()]: (state, { error }) => {
             state.isBalanceLoading = false
+            state.isError = true
+            state.errorMessage = error.message
+        },
+        [fetchDelegatedAmounts.pending.toString()]: (state) => {
+            state.isDelegatedAmountLoading = true
+        },
+        [fetchDelegatedAmounts.fulfilled.toString()]: (state, { payload }) => {
+            state.isDelegatedAmountLoading = false
+            let validator = state.validatorMetadata.filter((validator) => validator.address === payload.address)[0]
+            for (let i = 0; i < validator.delegators.length; i++) {
+                const delegatedAmount = payload.delegatedAmounts.filter((delegatedAmount: Array<string>) => delegatedAmount[0] === validator.delegators[i][0])[0]
+                validator.delegators[i] = [validator.delegators[i][0], delegatedAmount ? delegatedAmount[1] : '0']
+            }
+            const index = state.validatorMetadata.findIndex((validator) => validator.address === payload.address)
+            state.validatorMetadata[index] = validator
+        },
+        [fetchDelegatedAmounts.rejected.toString()]: (state, { error }) => {
+            state.isDelegatedAmountLoading = false
             state.isError = true
             state.errorMessage = error.message
         }

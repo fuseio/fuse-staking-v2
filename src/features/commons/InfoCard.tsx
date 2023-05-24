@@ -8,6 +8,8 @@ type InfoCardProps = {
   type?: 1 | 2 | 3;
   size?: "small" | "medium" | "large";
   isLoading?: boolean;
+  icon?: string;
+  onClick?: () => void;
 };
 
 const InfoCard = ({
@@ -18,6 +20,8 @@ const InfoCard = ({
   type = 1,
   size = "small",
   isLoading = false,
+  icon,
+  onClick,
 }: InfoCardProps) => {
   return (
     <div
@@ -35,7 +39,17 @@ const InfoCard = ({
       {isLoading ? (
         <div className="py-3 w-2/3 rounded-md bg-white/25 animate-pulse"></div>
       ) : (
-        <div className="text-2xl font-black text-white">{Header}</div>
+        <div className="flex justify-start items-start">
+          <div className="text-2xl font-black text-white w-[95%]">{Header}</div>
+          {icon && (
+            <img
+              src={icon}
+              alt="icon"
+              className="cursor-pointer"
+              onClick={onClick}
+            />
+          )}
+        </div>
       )}
 
       {isLoading ? (
@@ -52,9 +66,7 @@ const InfoCard = ({
         </div>
       )}
       {type !== 3 && (
-        <div className="text-base text-white font-normal mt-3">
-          {Footer}
-        </div>
+        <div className="text-base text-white font-normal mt-3">{Footer}</div>
       )}
     </div>
   );

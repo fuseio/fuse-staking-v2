@@ -17,6 +17,7 @@ module.exports = {
       navy: "#071927",
       "light-gray": "#F3F3F3",
       "bg-dark-gray": "#F3F3F3",
+      "modal-bg": "#F2F2F2",
       lightBlue: "#063B64",
       purple: "#7A159A",
       gray: "#BABABA",
@@ -30,6 +31,7 @@ module.exports = {
       "text-heading-gray": "#4D4D4D",
       "text-inactive": "#D1D1D1",
       "fuse-green": "#20B92E",
+      "fuse-green-light": "#B4F9BA",
       white: "#FFFFFF",
       "fuse-black": "#1A1A1A",
       black: "#000000",
@@ -41,6 +43,7 @@ module.exports = {
       "error-dark": "#750000",
       "success-dark": "#0A7500",
       "inactive-dark": "#E5E5E6",
+      "button-inactive": "#808080",
     },
     fontFamily: {
       mona: ["Mona-Sans"],

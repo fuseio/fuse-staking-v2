@@ -7,8 +7,10 @@ import StickyBox from "react-sticky-box";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import link from "../../assets/link.svg";
+import arrow from "../../assets/arrow.svg";
 import {
   ValidatorType,
+  fetchDelegatedAmounts,
   fetchSelfStake,
   fetchValidatorMetadata,
   fetchValidators,
@@ -18,6 +20,7 @@ import { eclipseAddress } from "../../utils/helpers";
 import Jazzicon from "react-jazzicon";
 import { useConnectWallet } from "@web3-onboard/react";
 import Breadcrumb from "../commons/Breadcrumb";
+import Modal from "../commons/Modal";
 const Stake = () => {
   const { id } = useParams();
   const [{ wallet }] = useConnectWallet();
@@ -26,6 +29,7 @@ const Stake = () => {
   );
   const dispatch = useAppDispatch();
   const validators = useAppSelector(selectValidatorSlice);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (validators.validatorMetadata.length > 0) {
@@ -69,6 +73,12 @@ const Stake = () => {
         links={["/"]}
         states={["Fuse Staking", validator?.name || "Validator"]}
         className="w-8/9 mt-4 md:w-9/10 max-w-7xl"
+      />
+      <Modal
+        isOpen={isOpen}
+        onToggle={setIsOpen}
+        delegators={validator?.delegators}
+        isLoading={validators.isDelegatedAmountLoading}
       />
       <div className="flex w-8/9 md:flex-col md:w-9/10 max-w-7xl">
         <div className="w-[65%] flex flex-col md:w-full">
@@ -173,6 +183,20 @@ const Stake = () => {
               Footer="Total Delegators"
               type={2}
               isLoading={!validator}
+              icon={arrow}
+              onClick={() => {
+                setIsOpen(true);
+                let delegatorsFilter: string[] = [];
+                validator?.delegators.forEach((delegator) => {
+                  delegatorsFilter.push(delegator[0]);
+                });
+                dispatch(
+                  fetchDelegatedAmounts({
+                    address: validator?.address as string,
+                    delegators: delegatorsFilter,
+                  })
+                );
+              }}
             />
             <InfoCard
               size="large"
@@ -185,8 +209,9 @@ const Stake = () => {
             <InfoCard
               size="large"
               Header={validator?.fee + "%"}
-              Body="Fee"
-              type={3}
+              Body="&nbsp;"
+              Footer="Fee"
+              type={2}
               isLoading={!validator}
             />
           </div>
