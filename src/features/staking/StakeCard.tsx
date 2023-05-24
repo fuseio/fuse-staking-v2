@@ -262,16 +262,16 @@ const StakeCard = ({
               : "Unstake"
           }
           className="bg-black font-medium text-white mt-6 rounded-full"
-          disabled={isLoading}
+          disabled={
+            isLoading ||
+            (cardMode === 0 &&
+              parseFloat(validator?.stakeAmount || "0") + getAmount() >
+                parseFloat(maxStake))
+          }
           onClick={() => {
             if (!wallet) return;
             if (!validator) return;
             if (getAmount() === 0) return;
-            if (
-              parseFloat(validator?.stakeAmount || "0") + getAmount() >
-              parseFloat(maxStake)
-            )
-              return;
             if (cardMode === 0) {
               setIsLoading(true);
               delegate(getAmount().toString(), validator?.address as string)
