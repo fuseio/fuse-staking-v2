@@ -25,6 +25,6 @@ export const fetchTokenPrice = async () => {
 }
 
 export const fetchTotalSupply = async () => {
-    const response = await axios.get(`https://api.coingecko.com/api/v3/coins/fuse-network-token?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`)
-    return response.data.market_data.total_supply
+    const response = await axios.get(`https://bot.fuse.io/api/v1/stats/total_supply_simple`)
+    return response.data
 }
