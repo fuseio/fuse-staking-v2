@@ -95,7 +95,7 @@ const StakeCard = ({
         );
       else setReward(getPredictedReward(getAmount()));
     }
-  }, [amount]);
+  }, [amount, validator]);
 
   const getAmount = () => {
     if (isNaN(parseFloat(amount as string))) return 0;
