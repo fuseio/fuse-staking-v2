@@ -358,7 +358,8 @@ const Home = () => {
         </div>
         <ValidatorsPane
           isLoading={
-            validatorSlice.isMetadataLoading || validatorSlice.isLoading
+            validatorSlice.validatorMetadata.length === 0 &&
+            (validatorSlice.isMetadataLoading || validatorSlice.isLoading)
           }
           validators={validatorsToDisplay}
           filters={["All", "My Staked"]}
