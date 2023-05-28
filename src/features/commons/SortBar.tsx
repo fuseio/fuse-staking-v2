@@ -1,5 +1,8 @@
 import React from "react";
 import sort from "../../assets/sort.svg";
+import { useOutsideClick } from '../hooks/useOutsideClick'
+
+
 
 type SortBarProps = {
   className?: string;
@@ -8,6 +11,8 @@ type SortBarProps = {
   selected: number;
 };
 
+
+
 const SortBar = ({
   className = "",
   onChange = () => {},
@@ -15,9 +20,15 @@ const SortBar = ({
   selected,
 }: SortBarProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const ref = useOutsideClick(()=>{
+    if(isOpen){
+      setIsOpen(false)
+    }
+  })
   return (
-    <div className={"relative cursor-pointer " + className}>
+    <div  className={"relative cursor-pointer " + className}>
       <div
+        ref={ref}
         className="flex items-center py-4 px-5 justify-between bg-white rounded-full w-full"
         onClick={() => setIsOpen(!isOpen)}
       >
