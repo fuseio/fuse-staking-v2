@@ -62,6 +62,7 @@
   justify-content: flex-end;
   padding-top: 10px;
   overflow: hidden;
+  
   }
   #onboard-container{
     position: absolute;
@@ -73,16 +74,21 @@
     #container-el {
         display: none;
     }
+
   }
   :root {
       --account-center-z-index:300;
-      --account-center-minimized-background:black;
-      --account-center-minimized-address-color:#ffff;
-      --account-center-maximized-upper-background:#ffff;
+      --account-center-position-top: -0.7rem;
+      --account-center-minimized-background:#000000;
+      --account-center-minimized-address-color:#ffffff;
+      --account-center-maximized-upper-background:#000000;
       --account-center-maximized-info-section-hover:black;
-      --account-center-minimized-balance-color:#ffff;
-      --account-center-background:black;
-  }
-  /* .wallets-section.svelte-1dn0ske{
-    background-color: black;
-  } */
+      --account-center-background:#000000;
+      --account-center-minimized-background:#000000;
+      --account-center-minimized-chain-select-background:#000000;
+      --account-center-maximized-network-section-background:#000000;
+      --account-center-micro-background:#000000;
+      --account-center-maximized-info-section-background-color:#ffffff;
+
+    }
+    
