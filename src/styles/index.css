@@ -35,3 +35,60 @@
     opacity: 1;
   }
 }
+
+
+/* :root {
+	
+  --account-center-position-right:0px;
+} */
+
+
+
+#wrapper-el{
+  height: 80px;
+  position: absolute;
+  display: flex;
+  top: 0;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  }
+  #container-el{
+  position: relative;
+  display: flex;
+  max-width: 1280px;
+  width:100%;
+  height: 100%;
+  justify-content: flex-end;
+  padding-top: 10px;
+  overflow: hidden;
+  
+  }
+  #onboard-container{
+    position: absolute;
+    right: 315.77px;
+    z-index: 300;
+  }
+  
+  @media (max-width: 767px) {
+    #container-el {
+        display: none;
+    }
+
+  }
+  :root {
+      --account-center-z-index:300;
+      --account-center-position-top: -0.7rem;
+      --account-center-minimized-background:#000000;
+      --account-center-minimized-address-color:#ffffff;
+      --account-center-maximized-upper-background:#000000;
+      --account-center-maximized-info-section-hover:black;
+      --account-center-background:#000000;
+      --account-center-minimized-background:#000000;
+      --account-center-minimized-chain-select-background:#000000;
+      --account-center-maximized-network-section-background:#000000;
+      --account-center-micro-background:#000000;
+      --account-center-maximized-info-section-background-color:#ffffff;
+
+    }
+    
