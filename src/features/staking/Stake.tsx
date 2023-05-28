@@ -61,6 +61,13 @@ const Stake = () => {
           validators: validators.validators,
         })
       );
+    } else if (!wallet && validator) {
+      dispatch(
+        fetchSelfStake({
+          address: "",
+          validators: validators.validators,
+        })
+      );
     }
   }, [wallet, validator]);
 

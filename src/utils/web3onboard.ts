@@ -7,7 +7,6 @@ import ledgerModule from '@web3-onboard/ledger'
 import torusModule from '@web3-onboard/torus'
 import trezorModule from '@web3-onboard/trezor'
 import walletConnectModule from '@web3-onboard/walletconnect'
-import web3authModule from '@web3-onboard/web3auth'
 import transactionPreviewModule from '@web3-onboard/transaction-preview'
 import injectedModule from '@web3-onboard/injected-wallets'
 

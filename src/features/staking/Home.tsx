@@ -48,6 +48,13 @@ const Home = () => {
           validators: validatorSlice.validators,
         })
       );
+    } else if (!wallet && validatorSlice.validatorMetadata.length > 0) {
+      dispatch(
+        fetchSelfStake({
+          address: "",
+          validators: validatorSlice.validators,
+        })
+      );
     }
   }, [wallet, validatorSlice.validatorMetadata.length]);
 
