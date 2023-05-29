@@ -26,9 +26,8 @@ const SortBar = ({
     }
   })
   return (
-    <div  className={"relative cursor-pointer " + className}>
+    <div ref={ref} className={"relative cursor-pointer " + className}>
       <div
-        ref={ref}
         className="flex items-center py-4 px-5 justify-between bg-white rounded-full w-full"
         onClick={() => setIsOpen(!isOpen)}
       >
