@@ -46,20 +46,7 @@
     }
 
   }
-  :root {
-      --account-center-z-index:300;
-      --account-center-position-top: -0.7rem;
-      --account-center-minimized-background:#000000;
-      --account-center-minimized-address-color:#ffffff;
-      --account-center-minimized-balance-color:#ffffff;
-      --account-center-minimized-network-selector-color:#ffffff;
-      --account-center-maximized-upper-background:#000000;
-      --account-center-maximized-info-section-hover:black;
-      --account-center-background:#000000;
-      --account-center-minimized-background:#000000;
-      --account-center-minimized-chain-select-background:#000000;
-      --account-center-maximized-network-section-background:#000000;
-      --account-center-micro-background:#000000;
-      --account-center-maximized-info-section-background-color:#ffffff;
+    :root{
+      --w3o-background-color:#000000 !important;
     }
     

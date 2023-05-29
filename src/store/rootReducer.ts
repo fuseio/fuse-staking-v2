@@ -5,13 +5,17 @@ import {
     Reducer
 } from '@reduxjs/toolkit'
 import validatorReducer from './validatorSlice'
+import searchReducer from './searchSlice'
 
 const appReducer = combineReducers({
-    validator: validatorReducer
+    validator: validatorReducer,
+    search: searchReducer
+
 })
 
 export type AppState = CombinedState<{
-    validator: ReturnType<typeof validatorReducer>
+    validator: ReturnType<typeof validatorReducer>,
+    search: ReturnType<typeof searchReducer>
 }>
 
 const rootReducer: Reducer = (state: AppState, action: AnyAction) => {

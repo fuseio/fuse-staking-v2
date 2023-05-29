@@ -1,5 +1,6 @@
 import { init } from '@web3-onboard/react'
 import fuseLogo from '../assets/fuselogo.svg'
+import whiteFuseLogo from '../assets/fuse-staking-logo-white.svg'
 import fuseIcon from '../assets/fuse.png'
 import fuseToken from '../assets/tokenLogo'
 import coinbaseWalletModule from '@web3-onboard/coinbase'
@@ -60,6 +61,8 @@ const wallets = [
 ]
 
 export const web3Onboard = init({
+    theme: 'dark',
+
     transactionPreview,
     apiKey: '889223c8-9e7e-4456-a412-8ba3acd72e3e',
     wallets,
@@ -67,7 +70,7 @@ export const web3Onboard = init({
     appMetadata: {
         name: "Fuse Staking",
         icon: fuseIcon,
-        logo: fuseLogo,
+        logo: whiteFuseLogo,
         description: "The Fuse Staking Dapp enables users to participate in the Fuse network's consensus by staking FUSE tokens.",
     },
     accountCenter: {
