@@ -62,9 +62,8 @@ const wallets = [
 
 export const web3Onboard = init({
     theme: 'dark',
-
     transactionPreview,
-    apiKey: '889223c8-9e7e-4456-a412-8ba3acd72e3e',
+    apiKey: import.meta.env.VITE_BLOCKNATIVE_API_KEY as string,
     wallets,
     chains,
     appMetadata: {
