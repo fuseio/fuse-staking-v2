@@ -13,7 +13,6 @@ import {
   selectValidatorSlice,
 } from "../../store/validatorSlice";
 import {
-  SearchStateType,
   selectSearchSlice,
   setReduxSearch,
   setReduxStateFilter,
@@ -25,7 +24,6 @@ import { useConnectWallet } from "@web3-onboard/react";
 import ValidatorsPane from "./ValidatorsPane";
 import Breadcrumb from "../commons/Breadcrumb";
 import SortBar from "../commons/SortBar";
-import { useDispatch, useSelector } from 'react-redux';
 
 
 const Home = () => {
@@ -41,12 +39,8 @@ const Home = () => {
   const [validatorsToDisplay, setValidatorsToDisplay] = useState<
     Array<ValidatorType>
   >([]);
-  const [searchToDisplay, setSearchToDisplay] = useState<
-  Array<SearchStateType>
->([]);
   useEffect(() => {
     setValidatorsToDisplay(validatorSlice.validatorMetadata);
-    console.log(searchToDisplay);
   }, [validatorSlice.validatorMetadata]);
   useEffect(() => {
     if (
