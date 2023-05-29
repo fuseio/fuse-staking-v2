@@ -113,7 +113,7 @@ const Modal = ({
                           page === i + 1
                             ? "cursor-pointer px-3 py-2 bg-fuse-green-light bg-opacity-50 rounded-sm ml-0.5 text-xs font-medium"
                             : "cursor-pointer px-3 py-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 text-button-inactive text-xs font-medium"
-                        }
+                        }   
                         key={i}
                         onClick={() => {
                           setPage(i + 1);

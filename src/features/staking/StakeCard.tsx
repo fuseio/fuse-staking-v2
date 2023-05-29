@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import info from "../../assets/info-black.svg";
 import ConnectWallet from "../commons/ConnectWallet";
 import ReactGA from "react-ga4";
+import ym from "react-yandex-metrika";
 
 type StakeCardProps = {
   className?: string;
@@ -287,6 +288,7 @@ const StakeCard = ({
                     action: "Staked",
                     value: getAmount(),
                   });
+                  ym("reachGoal", "stake");
                   setAmount(null);
                   setIsLoading(false);
                   updateBalances();
@@ -310,6 +312,7 @@ const StakeCard = ({
                     action: "Unstaked",
                     value: getAmount(),
                   });
+                  ym("reachGoal", "unstake");
                   setAmount(null);
                   setIsLoading(false);
                   updateBalances();
