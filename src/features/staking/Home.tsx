@@ -12,14 +12,27 @@ import {
   fetchValidators,
   selectValidatorSlice,
 } from "../../store/validatorSlice";
+import {
+  SearchStateType,
+  selectSearchSlice,
+  setReduxSearch,
+  setReduxStateFilter,
+   setReduxStatusFilter,
+    setReduxMyStakeFilter,
+     setReduxSort 
+} from "../../store/searchSlice";
 import { useConnectWallet } from "@web3-onboard/react";
 import ValidatorsPane from "./ValidatorsPane";
 import Breadcrumb from "../commons/Breadcrumb";
 import SortBar from "../commons/SortBar";
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const Home = () => {
   const [{ wallet }] = useConnectWallet();
   const validatorSlice = useAppSelector(selectValidatorSlice);
+  const SearchSlice = useAppSelector(selectSearchSlice);
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchValidators());
@@ -28,8 +41,12 @@ const Home = () => {
   const [validatorsToDisplay, setValidatorsToDisplay] = useState<
     Array<ValidatorType>
   >([]);
+  const [searchToDisplay, setSearchToDisplay] = useState<
+  Array<SearchStateType>
+>([]);
   useEffect(() => {
     setValidatorsToDisplay(validatorSlice.validatorMetadata);
+    console.log(searchToDisplay);
   }, [validatorSlice.validatorMetadata]);
   useEffect(() => {
     if (
@@ -58,42 +75,41 @@ const Home = () => {
     }
   }, [wallet, validatorSlice.validatorMetadata.length]);
 
-  const [filter, setFilter] = useState({
-    search: "",
-    stateFilter: 1,
-    statusFilter: 1,
-    myStakeFilter: 0,
-    sort: 0,
-  });
+  const [filter, setFilter] = useState(SearchSlice);
 
   const setSearch = (search: string) => {
     let oldFilter = JSON.parse(JSON.stringify(filter));
     oldFilter.search = search;
     setFilter(oldFilter);
+   dispatch(setReduxSearch(oldFilter.search))
   };
 
   const setStateFilter = (stateFilter: number) => {
     let oldFilter = JSON.parse(JSON.stringify(filter));
     oldFilter.stateFilter = stateFilter;
     setFilter(oldFilter);
+    dispatch(setReduxStateFilter(oldFilter.stateFilter))
   };
 
   const setStatusFilter = (statusFilter: number) => {
     let oldFilter = JSON.parse(JSON.stringify(filter));
     oldFilter.statusFilter = statusFilter;
     setFilter(oldFilter);
+    dispatch(setReduxStatusFilter(oldFilter.statusFilter))
   };
 
   const setMyStakeFilter = (myStakeFilter: number) => {
     let oldFilter = JSON.parse(JSON.stringify(filter));
     oldFilter.myStakeFilter = myStakeFilter;
     setFilter(oldFilter);
+    dispatch(setReduxMyStakeFilter(oldFilter.myStakeFilter))
   };
 
   const setSort = (sort: number) => {
     let oldFilter = JSON.parse(JSON.stringify(filter));
     oldFilter.sort = sort;
     setFilter(oldFilter);
+    dispatch(setReduxSort(oldFilter.sort))
   };
 
   const filterValidators = () => {
@@ -130,7 +146,7 @@ const Home = () => {
       });
     } else if (filter.sort === 2) {
       filteredValidators.sort((a, b) => {
-        return (b.uptime ? b.uptime : 0) - (a.uptime ? a.uptime : 0);
+        return (b.uptime ? b.uptime : 0) - (a.uptime ? a.uptime : 0)||parseFloat(b.stakeAmount) - parseFloat(a.stakeAmount);
       });
     } else if (filter.sort === 3) {
       filteredValidators.sort((a, b) => {
@@ -317,6 +333,7 @@ const Home = () => {
             onChange={(e) => {
               setSearch(e.target.value);
             }}
+            value={filter.search}
           />
           <SortBar
             className="w-1/5 md:w-full md:mt-4"
@@ -340,7 +357,7 @@ const Home = () => {
             onClick={(i, _) => {
               setStateFilter(i);
             }}
-            select={1}
+            select={filter.stateFilter}
             tooltip={`Validators can be "open" or "closed" for delegation. You can only delegate tokens to open validators. If a validator you've delegated to becomes closed, you can still unstake your tokens anytime.`}
           />
           <FilterBar
@@ -352,7 +369,7 @@ const Home = () => {
             onClick={(i, _) => {
               setStatusFilter(i);
             }}
-            select={1}
+            select={filter.statusFilter}
             tooltip={`Validators can be "active" or "inactive". Active validators are currently validating blocks, while inactive validators are not, due to maintenance or being jailed.`}
           />
         </div>
