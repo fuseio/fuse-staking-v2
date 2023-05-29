@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import cross from "../../assets/close.svg";
 import sort from "../../assets/sort.svg";
 import search from "../../assets/search.svg";
+import { motion } from "framer-motion";
+import { eclipseAddress } from "../../utils/helpers";
+import copy from "../../assets/copy.svg";
 
 interface ModalProps {
   delegators?: Array<Array<string>> | undefined;
@@ -33,10 +36,17 @@ const Modal = ({
     <>
       {isOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center"
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex"
           id="modal-bg"
         >
-          <div className="bg-white w-5/12 h-[519px] rounded-xl flex flex-col items-start justify-start px-4 py-3 modal relative md:w-[95%]">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              duration: 0.5,
+            }}
+            className="bg-white w-5/12 h-[519px] rounded-xl flex flex-col items-start justify-start px-4 py-3 relative top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 md:w-full md:top-full md:-translate-y-full md:rounded-b-none"
+          >
             <div className="font-semibold text-text-primary text-lg flex items-start justify-between w-full">
               <span className="font-bold">All Delegators</span>
               <img
@@ -79,14 +89,33 @@ const Modal = ({
                         className="flex justify-between w-full py-2 px-4 border-text-gray border-b-0 border-t-0.5 border-r-0.5 border-l-0.5 last:border-b-0.5 first:rounded-t-md last:rounded-b-md"
                         key={index}
                       >
-                        <span className="text-xs text-text-gray">
+                        <span className="text-xs text-text-gray md:hidden flex items-center">
                           {delegator[0]}
+                          <img
+                            src={copy}
+                            alt="copy"
+                            className="ms-2 h-4 cursor-pointer"
+                            onClick={() => {
+                              navigator.clipboard.writeText(delegator[0]);
+                            }}
+                          />
+                        </span>
+                        <span className="text-xs text-text-gray hidden md:flex items-center">
+                          {eclipseAddress(delegator[0])}
+                          <img
+                            src={copy}
+                            alt="copy"
+                            className="ms-2 h-4 cursor-pointer"
+                            onClick={() => {
+                              navigator.clipboard.writeText(delegator[0]);
+                            }}
+                          />
                         </span>
                         {isLoading ? (
                           <div className="px-14 h-4 bg-modal-bg animate-pulse rounded"></div>
                         ) : (
                           <div className="text-xs text-text-gray">
-                            {delegator[1]}
+                            {parseFloat(delegator[1]).toFixed(2)}
                           </div>
                         )}
                       </div>
@@ -138,7 +167,7 @@ const Modal = ({
                 <img src={sort} alt="p" className="-rotate-90 h-4" />
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
     </>
