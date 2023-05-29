@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppState } from '../rootReducer'
-import { getDelegatedAmount, fetchValidatorData, getJailedValidators, getStake, getTotalStakeAmount, getValidators, getMaxStake } from '../../utils/contractInteract'
-import Validators from '../../validators/validators.json'
-import { fetchNodeByAddress, fetchTokenPrice, fetchTotalSupply } from '../../utils/api'
+
 
 export interface SearchStateType {
     search: String,
