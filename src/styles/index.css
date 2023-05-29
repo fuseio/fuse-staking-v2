@@ -47,6 +47,8 @@
 
   }
     :root{
-      --w3o-background-color:#000000 !important;
+      --w3o-background-color:#000000 !important;   
+      --account-center-z-index:300;
+      --account-center-position-top: -0.7rem;
     }
     
