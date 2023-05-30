@@ -124,7 +124,7 @@ const Modal = ({
             </div>
             <div className="w-full justify-end flex mt-auto">
               <div
-                className="cursor-pointer p-2 bg-modal-bg bg-opacity-50 rounded-sm"
+                className="cursor-pointer p-2 bg-modal-bg bg-opacity-50 rounded-sm md:p-1"
                 onClick={() => {
                   if (page > 1) {
                     setPage(page - 1);
@@ -145,8 +145,8 @@ const Modal = ({
                     <div
                       className={
                         page === i + 1
-                          ? "cursor-pointer px-3 py-2 bg-fuse-green-light bg-opacity-50 rounded-sm ml-0.5 text-xs font-medium"
-                          : "cursor-pointer px-3 py-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 text-button-inactive text-xs font-medium"
+                          ? "cursor-pointer px-3 py-2 bg-fuse-green-light bg-opacity-50 rounded-sm ml-0.5 text-xs font-medium md:text-[10px] md:px-2 md:py-1"
+                          : "cursor-pointer px-3 py-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 text-button-inactive text-xs font-medium md:text-[10px] md:px-2 md:py-1"
                       }
                       key={i}
                       onClick={() => {
@@ -158,7 +158,7 @@ const Modal = ({
                   );
                 })}
               {Math.ceil(delegatorsToDisplay?.length / 11) > 9 && (
-                <div className="px-3 py-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 text-xs font-medium">
+                <div className="px-3 py-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 text-xs font-medium md:text-[10px] md:px-2 md:py-1">
                   ...
                 </div>
               )}
@@ -166,8 +166,8 @@ const Modal = ({
                 <div
                   className={
                     page === Math.ceil(delegatorsToDisplay?.length / 11)
-                      ? "cursor-pointer px-3 py-2 bg-fuse-green-light bg-opacity-50 rounded-sm ml-0.5 text-xs font-medium"
-                      : "cursor-pointer px-3 py-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 text-button-inactive text-xs font-medium"
+                      ? "cursor-pointer px-3 py-2 bg-fuse-green-light bg-opacity-50 rounded-sm ml-0.5 text-xs font-medium md:text-[10px] md:px-2 md:py-1"
+                      : "cursor-pointer px-3 py-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 text-button-inactive text-xs font-medium md:text-[10px] md:px-2 md:py-1"
                   }
                   onClick={() => {
                     setPage(Math.ceil(delegatorsToDisplay?.length / 11));
@@ -177,7 +177,7 @@ const Modal = ({
                 </div>
               }
               <div
-                className="cursor-pointer p-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5"
+                className="cursor-pointer p-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 md:p-1"
                 onClick={() => {
                   if (
                     delegatorsToDisplay != null &&
