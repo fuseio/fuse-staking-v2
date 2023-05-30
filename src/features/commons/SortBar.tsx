@@ -15,7 +15,9 @@ const menu = {
     scale: 0,
     transition: {
       delay: 0.15,
+      duration: 0.1,
     },
+    y: -100,
   },
   open: {
     scale: 1,
@@ -23,6 +25,7 @@ const menu = {
       type: "spring",
       duration: 0.4,
     },
+    y: 0,
   },
 };
 
@@ -50,30 +53,28 @@ const SortBar = ({
         </span>
         <img src={sort} alt="sort" />
       </div>
-      {isOpen && (
-        <motion.div
-          animate={isOpen ? "open" : "closed"}
-          initial="closed"
-          exit="closed"
-          variants={menu}
-          className="absolute mt-2 left-0 bg-white rounded-lg shadow-xl w-60 p-2 md:w-full z-50"
-        >
-          {options.map((option, index) => (
-            <div
-              key={index}
-              className={
-                "flex items-center justify-between px-3 py-2 text-sm " +
-                (index === selected ? "bg-selected-gray/30 rounded-md" : "")
-              }
-              onClick={() => {
-                onChange(index);
-              }}
-            >
-              <span>{option}</span>
-            </div>
-          ))}
-        </motion.div>
-      )}
+      <motion.div
+        animate={isOpen ? "open" : "closed"}
+        initial="closed"
+        exit="closed"
+        variants={menu}
+        className="absolute mt-2 left-0 bg-white rounded-lg shadow-xl w-60 p-2 md:w-full z-50"
+      >
+        {options.map((option, index) => (
+          <div
+            key={index}
+            className={
+              "flex items-center justify-between px-3 py-2 text-sm " +
+              (index === selected ? "bg-selected-gray/30 rounded-md" : "")
+            }
+            onClick={() => {
+              onChange(index);
+            }}
+          >
+            <span>{option}</span>
+          </div>
+        ))}
+      </motion.div>
     </div>
   );
 };
