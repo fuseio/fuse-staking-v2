@@ -134,25 +134,48 @@ const Modal = ({
                 <img src={sort} alt="p" className="rotate-90 h-4" />
               </div>
               {delegatorsToDisplay != null &&
-                [...Array(Math.ceil(delegatorsToDisplay?.length / 11))].map(
-                  (pageNo, i) => {
-                    return (
-                      <div
-                        className={
-                          page === i + 1
-                            ? "cursor-pointer px-3 py-2 bg-fuse-green-light bg-opacity-50 rounded-sm ml-0.5 text-xs font-medium"
-                            : "cursor-pointer px-3 py-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 text-button-inactive text-xs font-medium"
-                        }   
-                        key={i}
-                        onClick={() => {
-                          setPage(i + 1);
-                        }}
-                      >
-                        {i + 1}
-                      </div>
-                    );
+                [
+                  ...Array(
+                    Math.ceil(delegatorsToDisplay?.length / 11) >= 9
+                      ? 8
+                      : Math.ceil(delegatorsToDisplay?.length / 11)
+                  ),
+                ].map((pageNo, i) => {
+                  return (
+                    <div
+                      className={
+                        page === i + 1
+                          ? "cursor-pointer px-3 py-2 bg-fuse-green-light bg-opacity-50 rounded-sm ml-0.5 text-xs font-medium"
+                          : "cursor-pointer px-3 py-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 text-button-inactive text-xs font-medium"
+                      }
+                      key={i}
+                      onClick={() => {
+                        setPage(i + 1);
+                      }}
+                    >
+                      {i + 1}
+                    </div>
+                  );
+                })}
+              {Math.ceil(delegatorsToDisplay?.length / 11) > 9 && (
+                <div className="px-3 py-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 text-xs font-medium">
+                  ...
+                </div>
+              )}
+              {
+                <div
+                  className={
+                    page === Math.ceil(delegatorsToDisplay?.length / 11)
+                      ? "cursor-pointer px-3 py-2 bg-fuse-green-light bg-opacity-50 rounded-sm ml-0.5 text-xs font-medium"
+                      : "cursor-pointer px-3 py-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5 text-button-inactive text-xs font-medium"
                   }
-                )}
+                  onClick={() => {
+                    setPage(Math.ceil(delegatorsToDisplay?.length / 11));
+                  }}
+                >
+                  {Math.ceil(delegatorsToDisplay?.length / 11)}
+                </div>
+              }
               <div
                 className="cursor-pointer p-2 bg-modal-bg bg-opacity-50 rounded-sm ml-0.5"
                 onClick={() => {
