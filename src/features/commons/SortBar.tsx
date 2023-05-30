@@ -1,8 +1,7 @@
 import React from "react";
 import sort from "../../assets/sort.svg";
-import { useOutsideClick } from '../hooks/useOutsideClick'
-
-
+import { useOutsideClick } from "../hooks/useOutsideClick";
+import { motion } from "framer-motion";
 
 type SortBarProps = {
   className?: string;
@@ -11,7 +10,21 @@ type SortBarProps = {
   selected: number;
 };
 
-
+const menu = {
+  closed: {
+    scale: 0,
+    transition: {
+      delay: 0.15,
+    },
+  },
+  open: {
+    scale: 1,
+    transition: {
+      type: "spring",
+      duration: 0.4,
+    },
+  },
+};
 
 const SortBar = ({
   className = "",
@@ -20,11 +33,11 @@ const SortBar = ({
   selected,
 }: SortBarProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const ref = useOutsideClick(()=>{
-    if(isOpen){
-      setIsOpen(false)
+  const ref = useOutsideClick(() => {
+    if (isOpen) {
+      setIsOpen(false);
     }
-  })
+  });
   return (
     <div ref={ref} className={"relative cursor-pointer " + className}>
       <div
@@ -38,7 +51,13 @@ const SortBar = ({
         <img src={sort} alt="sort" />
       </div>
       {isOpen && (
-        <div className="absolute mt-2 left-0 bg-white rounded-lg shadow-xl w-60 p-2 md:w-full z-50">
+        <motion.div
+          animate={isOpen ? "open" : "closed"}
+          initial="closed"
+          exit="closed"
+          variants={menu}
+          className="absolute mt-2 left-0 bg-white rounded-lg shadow-xl w-60 p-2 md:w-full z-50"
+        >
           {options.map((option, index) => (
             <div
               key={index}
@@ -53,7 +72,7 @@ const SortBar = ({
               <span>{option}</span>
             </div>
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   );
