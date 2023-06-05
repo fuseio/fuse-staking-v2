@@ -17,7 +17,7 @@ const WarningModal = ({
   onToggle,
   onConfirm,
   minStake = "100K",
-  isAknoledged
+  isAknoledged,
 }: WarningModalProps): JSX.Element => {
   useEffect(() => {
     window.addEventListener("click", (e) => {
@@ -43,7 +43,7 @@ const WarningModal = ({
             }}
             className="bg-white w-[400px] h-[360px] rounded-xl flex flex-col items-start justify-start relative top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 md:w-full md:top-full md:-translate-y-full md:rounded-b-none"
           >
-            <div className="flex w-full bg-warning-yellow rounded-t-xl h-[13%] items-center px-4">
+            <div className="flex w-full bg-warning-yellow rounded-t-xl h-[13%] items-center px-4 border-b-[1px] border-warning-gray">
               <img src={warning} alt="warning" />
               <span className="text-base/4 font-bold text-warning-gray ms-3">
                 Notice
