@@ -7,6 +7,7 @@ type ButtonProps = {
   padding?: string;
   disabled?: boolean;
   type?: "submit" | "button" | "reset";
+  disabledClassname?: string;
 };
 
 const Button = ({
@@ -16,10 +17,13 @@ const Button = ({
   padding = "px-4 py-2",
   disabled = false,
   type = "button",
+  disabledClassname = className,
 }: ButtonProps) => {
   return (
     <button
-      className={padding + " " + className}
+      className={
+        disabled ? padding + " " + disabledClassname : padding + " " + className
+      }
       onClick={onClick}
       disabled={disabled}
       type={type}

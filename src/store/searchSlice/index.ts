@@ -27,7 +27,6 @@ const searchSlice = createSlice({
     reducers: {
         setReduxSearch: (state, action: PayloadAction<string>) => {
             state.search = action.payload;
-            console.log(state.search)
         },
         setReduxStateFilter: (state, action: PayloadAction<number>) => {
             state.stateFilter = action.payload;
