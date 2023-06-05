@@ -38,6 +38,16 @@ export const getJailedValidators = async () => {
     return validators
 }
 
+export const getPendingValidators = async () => {
+    const contract = getConsensusContract(web3OnboardProvider)
+    const validatorsMap: Map<number, string> = await contract.pendingValidators()
+    const validators: string[] = []
+    validatorsMap.forEach((value, _) => {
+        validators.push(value.toLowerCase())
+    })
+    return validators
+}
+
 export const fetchValidatorData = async (address: string) => {
     const contract = getConsensusContract(web3OnboardProvider)
     const stakeAmount = await contract.stakeAmount(address)
@@ -85,5 +95,11 @@ export const getDelegatedAmount = async (delegator: string, validator: string) =
 export const getMaxStake = async () => {
     const contract = getConsensusContract(web3OnboardProvider)
     const maxStake = await contract.getMaxStake()
+    return ethers.formatEther(maxStake)
+}
+
+export const getMinStake = async () => {
+    const contract = getConsensusContract(web3OnboardProvider)
+    const maxStake = await contract.getMinStake()
     return ethers.formatEther(maxStake)
 }

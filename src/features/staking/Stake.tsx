@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import link from "../../assets/link.svg";
 import arrow from "../../assets/arrow.svg";
+import ReactGA from "react-ga4";
+import ym from "react-yandex-metrika";
 import {
   ValidatorType,
   fetchDelegatedAmounts,
@@ -22,15 +24,77 @@ import { useConnectWallet } from "@web3-onboard/react";
 import Breadcrumb from "../commons/Breadcrumb";
 import Modal from "../commons/Modal";
 import FAQ from "../commons/FAQ";
+import WarningModal from "../commons/WarningModal";
+import { WalletState } from "@web3-onboard/core";
+import { delegate, withdraw } from "../../utils/contractInteract";
 const Stake = () => {
   const { id } = useParams();
-  const [{ wallet }] = useConnectWallet();
+  const [{ wallet }, connect, disconnect, updateBalances] = useConnectWallet();
   const [validator, setValidator] = useState<ValidatorType | undefined>(
     undefined
   );
+  const [amount, setAmount] = React.useState<string | null>(null);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
   const validators = useAppSelector(selectValidatorSlice);
   const [isOpen, setIsOpen] = useState(false);
+  const [isWarningOpen, setIsWarningOpen] = useState(false);
+  const [isWarningAknowledged, setIsWarningAknowledged] = useState(false);
+  const getAmount = () => {
+    if (isNaN(parseFloat(amount as string))) return 0;
+    return parseFloat(amount as string);
+  };
+  const handleStake = () => {
+    setIsLoading(true);
+    delegate(getAmount().toString(), validator?.address as string)
+      .then(() => {
+        dispatch(
+          fetchSelfStake({
+            address: (wallet as WalletState).accounts[0].address,
+            validators: [validator?.address as string],
+          })
+        );
+        ReactGA.event({
+          category: "Stake",
+          action: "Staked",
+          value: getAmount(),
+        });
+        ym("reachGoal", "stake");
+        setAmount(null);
+        setIsLoading(false);
+        updateBalances();
+      })
+      .catch((e) => {
+        console.log(e);
+        setIsLoading(false);
+      });
+  };
+
+  const handleUnstake = () => {
+    setIsLoading(true);
+    withdraw(getAmount().toString(), validator?.address as string)
+      .then(() => {
+        dispatch(
+          fetchSelfStake({
+            address: (wallet as WalletState).accounts[0].address,
+            validators: [validator?.address as string],
+          })
+        );
+        ReactGA.event({
+          category: "Unstake",
+          action: "Unstaked",
+          value: getAmount(),
+        });
+        ym("reachGoal", "unstake");
+        setAmount(null);
+        setIsLoading(false);
+        updateBalances();
+      })
+      .catch((e) => {
+        console.log(e);
+        setIsLoading(false);
+      });
+  };
 
   useEffect(() => {
     if (validators.validatorMetadata.length > 0) {
@@ -161,6 +225,16 @@ const Stake = () => {
         onToggle={setIsOpen}
         delegators={validator?.delegators}
         isLoading={validators.isDelegatedAmountLoading}
+      />
+      <WarningModal
+        isOpen={isWarningOpen}
+        onToggle={setIsWarningOpen}
+        isAknoledged={isWarningAknowledged}
+        onConfirm={(arg) => {
+          setIsWarningAknowledged(arg);
+          if (arg) handleUnstake();
+        }}
+        minStake={validators.minStakeAmount}
       />
       <div className="flex w-8/9 flex-col md:w-9/10 max-w-7xl">
         <div className="flex w-full md:flex-col">
@@ -359,6 +433,17 @@ const Stake = () => {
               <StakeCard
                 validator={validator}
                 closed={validator?.forDelegation ? false : true}
+                isWarningAknowledged={isWarningAknowledged}
+                warningToggle={() => {
+                  setIsWarningAknowledged(false);
+                  setIsWarningOpen(true);
+                }}
+                handleStake={handleStake}
+                handleUnstake={handleUnstake}
+                amount={amount}
+                setAmount={setAmount}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
               />
             </StickyBox>
           </div>

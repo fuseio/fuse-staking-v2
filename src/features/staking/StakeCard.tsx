@@ -3,30 +3,45 @@ import fuseToken from "../../assets/fuseToken.svg";
 import Button from "../commons/Button";
 import {
   ValidatorType,
-  fetchSelfStake,
   selectMaxStake,
+  selectMinStake,
   selectValidatorSlice,
 } from "../../store/validatorSlice";
 import { useConnectWallet } from "@web3-onboard/react";
-import { delegate, withdraw } from "../../utils/contractInteract";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import info from "../../assets/info-black.svg";
 import ConnectWallet from "../commons/ConnectWallet";
-import ReactGA from "react-ga4";
-import ym from "react-yandex-metrika";
 
 type StakeCardProps = {
   className?: string;
   validator: ValidatorType | undefined;
   closed?: boolean;
+  warningToggle?: () => void;
+  isWarningAknowledged?: boolean;
+  handleStake: () => void;
+  handleUnstake: () => void;
+  amount: string | null;
+  setAmount: (amount: string | null) => void;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
 };
 const StakeCard = ({
   className = "",
   validator,
   closed = false,
+  warningToggle = () => {},
+  isWarningAknowledged = false,
+  handleStake = () => {},
+  handleUnstake = () => {},
+  amount,
+  setAmount,
+  isLoading,
+  setIsLoading,
 }: StakeCardProps) => {
   const [cardMode, setCardMode] = React.useState(closed ? 1 : 0);
   const maxStake = useAppSelector(selectMaxStake);
+  const minStake = useAppSelector(selectMinStake);
+
   useEffect(() => {
     if (closed) {
       setCardMode(1);
@@ -39,11 +54,8 @@ const StakeCard = ({
     if (closed) return;
     setCardMode(mode);
   };
-  const [amount, setAmount] = React.useState<string | null>(null);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [{ wallet }, connect, disconnect, updateBalances] = useConnectWallet();
+  const [{ wallet }] = useConnectWallet();
   const [balance, setBalance] = React.useState<number>(0.0);
-  const dispatch = useAppDispatch();
   useEffect(() => {
     // @ts-ignore
     if (wallet?.accounts[0].balance) {
@@ -62,6 +74,15 @@ const StakeCard = ({
       return reward;
     }
     return 0;
+  };
+
+  const handleWithdraw = () => {
+    if (
+      parseFloat(validator?.stakeAmount as string) - getAmount() <
+      parseFloat(minStake as string)
+    )
+      warningToggle();
+    else handleUnstake();
   };
 
   const getPredictedIncrease = () => {
@@ -263,7 +284,9 @@ const StakeCard = ({
               : "Unstake"
           }
           className="bg-black font-medium text-white mt-6 rounded-full"
+          disabledClassname="bg-black/25 font-medium text-white rounded-full w-full mt-6"
           disabled={
+            getAmount() === 0 ||
             isLoading ||
             (cardMode === 0 &&
               parseFloat(validator?.stakeAmount || "0") + getAmount() >
@@ -274,53 +297,9 @@ const StakeCard = ({
             if (!validator) return;
             if (getAmount() === 0) return;
             if (cardMode === 0) {
-              setIsLoading(true);
-              delegate(getAmount().toString(), validator?.address as string)
-                .then(() => {
-                  dispatch(
-                    fetchSelfStake({
-                      address: wallet.accounts[0].address,
-                      validators: [validator?.address as string],
-                    })
-                  );
-                  ReactGA.event({
-                    category: "Stake",
-                    action: "Staked",
-                    value: getAmount(),
-                  });
-                  ym("reachGoal", "stake");
-                  setAmount(null);
-                  setIsLoading(false);
-                  updateBalances();
-                })
-                .catch((e) => {
-                  console.log(e);
-                  setIsLoading(false);
-                });
+              handleStake();
             } else {
-              setIsLoading(true);
-              withdraw(getAmount().toString(), validator?.address as string)
-                .then(() => {
-                  dispatch(
-                    fetchSelfStake({
-                      address: wallet.accounts[0].address,
-                      validators: [validator?.address as string],
-                    })
-                  );
-                  ReactGA.event({
-                    category: "Unstake",
-                    action: "Unstaked",
-                    value: getAmount(),
-                  });
-                  ym("reachGoal", "unstake");
-                  setAmount(null);
-                  setIsLoading(false);
-                  updateBalances();
-                })
-                .catch((e) => {
-                  console.log(e);
-                  setIsLoading(false);
-                });
+              handleWithdraw();
             }
           }}
         />
