@@ -94,7 +94,12 @@ export const fetchValidatorMetadata = createAsyncThunk(
             let totalDelegators = 0
             const jailedValidators = await getJailedValidators()
             const pendingValidators = await getPendingValidators()
-            const validatorMap = new Map(Object.entries(Validators));
+            const validatorMap = new Map<string, {
+                name?: string,
+                website?: string,
+                image?: string
+                description?: string
+            }>(Object.entries(Validators));
             Promise.all(validators.map(async (validator) => {
                 const status = jailedValidators.includes(validator.toLowerCase()) ? 'inactive' : 'active'
                 const metadata = await fetchValidatorData(validator)
@@ -105,10 +110,11 @@ export const fetchValidatorMetadata = createAsyncThunk(
                         ...metadata,
                         address: validator,
                         name: validatorData?.name ? validatorData?.name : validator,
-                        website: validatorData?.website,
-                        image: validatorData?.image,
+                        website: validatorData?.website ? validatorData?.website : undefined,
+                        image: validatorData?.image ? validatorData?.image : undefined,
                         status,
-                        isPending: pendingValidators.includes(validator.toLowerCase())
+                        isPending: pendingValidators.includes(validator.toLowerCase()),
+                        description: validatorData?.description ? validatorData?.description : undefined,
                     })
                 } else {
                     let apiMetadata = await fetchNodeByAddress(validator)
@@ -116,14 +122,14 @@ export const fetchValidatorMetadata = createAsyncThunk(
                     validatorMetadata.push({
                         ...metadata,
                         address: validator,
-                        name: validatorData?.name,
-                        website: validatorData?.website,
-                        image: validatorData?.image,
+                        name: validatorData?.name ? validatorData?.name : validator,
+                        website: validatorData?.website ? validatorData?.website : undefined,
+                        image: validatorData?.image ? validatorData?.image : undefined,
                         firstSeen: apiMetadata?.firstSeen ? apiMetadata?.firstSeen : undefined,
                         forDelegation: apiMetadata?.forDelegation ? apiMetadata?.forDelegation : undefined,
                         totalValidated: apiMetadata?.totalValidated ? apiMetadata?.totalValidated : undefined,
                         uptime: apiMetadata?.upTime ? apiMetadata?.upTime : undefined,
-                        description: apiMetadata?.description ? apiMetadata?.description : undefined,
+                        description: validatorData?.description ? validatorData?.description : undefined,
                         status,
                         isPending: pendingValidators.includes(validator.toLowerCase())
                     })
