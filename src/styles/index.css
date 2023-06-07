@@ -46,12 +46,6 @@
 
   }
 
-  /* @media (max-width:1280px) {
-    #container-el {
-       right:60px;
-    }
-
-  } */
     :root{
       --w3o-background-color:#000000 !important;   
       --account-center-z-index:300;
