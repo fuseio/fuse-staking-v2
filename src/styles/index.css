@@ -27,17 +27,16 @@
   position: relative;
   display: flex;
   max-width: 1280px;
-  width:100%;
+  width:90%;
   height: 100%;
   justify-content: flex-end;
   padding-top: 10px;
-  overflow: hidden;
-  
   }
   #onboard-container{
-    position: absolute;
-    right: 315.77px;
+    position: fixed;
+    width: 315.77px;
     z-index: 300;
+    contain: layout;
   }
   
   @media (max-width: 767px) {
@@ -46,6 +45,7 @@
     }
 
   }
+
     :root{
       --w3o-background-color:#000000 !important;   
       --account-center-z-index:300;
