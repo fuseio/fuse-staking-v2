@@ -36,7 +36,7 @@
     position: fixed;
     width: 315.77px;
     z-index: 300;
-    contain: layout;
+    /* contain: layout; */
   }
   
   @media (max-width: 767px) {
