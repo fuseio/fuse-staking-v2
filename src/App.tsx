@@ -4,11 +4,13 @@ import Topbar from "./features/commons/Topbar";
 import Home from "./features/staking/Home";
 import Stake from "./features/staking/Stake";
 import Footer from "./features/commons/Footer";
+import ChainModal from "./features/commons/ChainModal";
 
 const App = () => {
   return (
     <div className="w-full font-mona justify-end">
       <div className="flex-col flex items-center bg-light-gray">
+        <ChainModal />
         <Topbar />
         <Routes>
           <Route path="/" element={<Home />} />
