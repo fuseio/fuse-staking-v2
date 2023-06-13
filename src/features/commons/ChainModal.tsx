@@ -13,6 +13,7 @@ const ChainModal = (): JSX.Element => {
     if (connectedChain?.id !== "0x7a") setIsOpen(true);
     else setIsOpen(false);
   }, [connectedChain]);
+  
   return (
     <>
       {isOpen && (
