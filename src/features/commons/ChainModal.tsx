@@ -9,11 +9,10 @@ const ChainModal = (): JSX.Element => {
   const [{ connectedChain }, setChain] = useSetChain();
 
   useEffect(() => {
-    console.log(connectedChain?.id);
     if (connectedChain?.id !== "0x7a") setIsOpen(true);
     else setIsOpen(false);
   }, [connectedChain]);
-  
+
   return (
     <>
       {isOpen && (
