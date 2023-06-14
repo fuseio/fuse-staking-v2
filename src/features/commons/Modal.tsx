@@ -89,33 +89,41 @@ const Modal = ({
                         className="flex justify-between w-full py-2 px-4 border-text-gray border-b-0 border-t-0.5 border-r-0.5 border-l-0.5 last:border-b-0.5 first:rounded-t-md last:rounded-b-md"
                         key={index}
                       >
-                        <span className="text-xs text-text-gray md:hidden flex items-center">
-                          {delegator[0]}
-                          <img
-                            src={copy}
-                            alt="copy"
-                            className="ms-2 h-4 cursor-pointer"
-                            onClick={() => {
-                              navigator.clipboard.writeText(delegator[0]);
-                            }}
-                          />
-                        </span>
-                        <span className="text-xs text-text-gray hidden md:flex items-center">
-                          {eclipseAddress(delegator[0])}
-                          <img
-                            src={copy}
-                            alt="copy"
-                            className="ms-2 h-4 cursor-pointer"
-                            onClick={() => {
-                              navigator.clipboard.writeText(delegator[0]);
-                            }}
-                          />
-                        </span>
+                        {isLoading ? (
+                          <div className="px-28 h-4 bg-modal-bg animate-pulse md:hidden block rounded"></div>
+                        ) : (
+                          <span className="text-xs text-text-gray md:hidden flex items-center">
+                            {delegator[0]}
+                            <img
+                              src={copy}
+                              alt="copy"
+                              className="ms-2 h-4 cursor-pointer"
+                              onClick={() => {
+                                navigator.clipboard.writeText(delegator[0]);
+                              }}
+                            />
+                          </span>
+                        )}
+                        {isLoading ? (
+                          <div className="px-28 h-4 bg-modal-bg animate-pulse hidden md:block rounded"></div>
+                        ) : (
+                          <span className="text-xs text-text-gray hidden md:flex items-center">
+                            {eclipseAddress(delegator[0])}
+                            <img
+                              src={copy}
+                              alt="copy"
+                              className="ms-2 h-4 cursor-pointer"
+                              onClick={() => {
+                                navigator.clipboard.writeText(delegator[0]);
+                              }}
+                            />
+                          </span>
+                        )}
                         {isLoading ? (
                           <div className="px-14 h-4 bg-modal-bg animate-pulse rounded"></div>
                         ) : (
                           <div className="text-xs text-text-gray">
-                            {parseFloat(delegator[1]).toFixed(2)}
+                            {parseFloat(delegator[1]).toFixed(5)}
                           </div>
                         )}
                       </div>
