@@ -240,14 +240,13 @@ const validatorSlice = createSlice({
             state.isDelegatedAmountLoading = true
         },
         [fetchDelegatedAmounts.fulfilled.toString()]: (state, { payload }) => {
-            state.isDelegatedAmountLoading = false
             let validator = state.validatorMetadata.filter((validator) => validator.address === payload.address)[0]
-            for (let i = 0; i < validator.delegators.length; i++) {
-                const delegatedAmount = payload.delegatedAmounts.filter((delegatedAmount: Array<string>) => delegatedAmount[0] === validator.delegators[i][0])[0]
-                validator.delegators[i] = [validator.delegators[i][0], delegatedAmount ? delegatedAmount[1] : '0']
-            }
+            validator.delegators = (payload.delegatedAmounts as Array<Array<string>>).sort((a, b) => {
+                return parseInt(b[1]) - parseInt(a[1]);
+            })
             const index = state.validatorMetadata.findIndex((validator) => validator.address === payload.address)
             state.validatorMetadata[index] = validator
+            state.isDelegatedAmountLoading = false
         },
         [fetchDelegatedAmounts.rejected.toString()]: (state, { error }) => {
             state.isDelegatedAmountLoading = false
