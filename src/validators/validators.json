@@ -136,7 +136,8 @@
     "image": "logos/Fuse Nation.jpg"
   },
   "0x78EcAa96138B1E491Dc0A9F8A3316d6519e3E689": {
-    "name": "GM Capital"
+    "name": "GM Capital",
+    "image": "logos/GMCapital.png"
   },
   "0x8101Add741f9eA35eb6801D8b1b398ad4fd87DD8": {
     "name": "Peepl",
@@ -192,8 +193,7 @@
   },
   "0xC2324553ED681c15B0AedACaEB8077C44b7F8D90": {
     "name": "AmpGang",
-    "image": "logos/AmpGang.jpg",
-    "website": "https://www.fuseprime.com"
+    "image": "logos/AmpGang.jpg"
   },
   "0xC9E2a90f99e6e19Ed612a4849A9C4F8DD3392B70": {
     "name": "AnaHera Phoenix",
@@ -242,9 +242,8 @@
     "website": "https://ionode.online"
   },
   "0xaa2170569178C96f58C299d6533E05C9aCD72353": {
-    "name": "Fuseprime",
-    "image": "logos/Fuseprime.jpg",
-    "website": "https://www.fuseprime.com"
+    "name": "BlockTelos",
+    "image": "logos/BlockTelos.png"
   },
   "0xd2Ac7c741C2EB8C67039F753E71fC4Fa1e25De2f": {
     "name": "EGS",
