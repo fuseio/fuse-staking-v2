@@ -243,7 +243,8 @@
   },
   "0xaa2170569178C96f58C299d6533E05C9aCD72353": {
     "name": "BlockTelos",
-    "image": "logos/BlockTelos.png"
+    "image": "logos/BlockTelos.png",
+    "website": "https://blocktelos.com"
   },
   "0xd2Ac7c741C2EB8C67039F753E71fC4Fa1e25De2f": {
     "name": "EGS",
