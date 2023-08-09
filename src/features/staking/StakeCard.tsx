@@ -8,7 +8,7 @@ import {
   selectValidatorSlice,
 } from "../../store/validatorSlice";
 import { useConnectWallet } from "@web3-onboard/react";
-import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useAppSelector } from "../../store/store";
 import info from "../../assets/info-black.svg";
 import ConnectWallet from "../commons/ConnectWallet";
 
@@ -29,10 +29,10 @@ const StakeCard = ({
   className = "",
   validator,
   closed = false,
-  warningToggle = () => {},
+  warningToggle = () => { },
   isWarningAknowledged = false,
-  handleStake = () => {},
-  handleUnstake = () => {},
+  handleStake = () => { },
+  handleUnstake = () => { },
   amount,
   setAmount,
   isLoading,
@@ -199,8 +199,8 @@ const StakeCard = ({
           <p className="text-sm font-semibold text-[#071927]">
             {validator.selfStakeAmount
               ? new Intl.NumberFormat().format(
-                  parseFloat(validator.selfStakeAmount)
-                )
+                parseFloat(validator.selfStakeAmount)
+              )
               : "0.0"}{" "}
             FUSE
           </p>
@@ -224,14 +224,14 @@ const StakeCard = ({
             {cardMode === 0
               ? validator.selfStakeAmount
                 ? new Intl.NumberFormat().format(
-                    getAmount() + parseFloat(validator.selfStakeAmount)
-                  )
+                  getAmount() + parseFloat(validator.selfStakeAmount)
+                )
                 : new Intl.NumberFormat().format(getAmount())
               : validator.selfStakeAmount
-              ? new Intl.NumberFormat().format(
+                ? new Intl.NumberFormat().format(
                   parseFloat(validator.selfStakeAmount) - getAmount()
                 )
-              : new Intl.NumberFormat().format(getAmount())}{" "}
+                : new Intl.NumberFormat().format(getAmount())}{" "}
             FUSE
           </p>
         ) : (
@@ -277,11 +277,11 @@ const StakeCard = ({
               ? "Loading..."
               : cardMode === 0 &&
                 parseFloat(validator?.stakeAmount || "0") + getAmount() >
-                  parseFloat(maxStake)
-              ? "Maximum Stake Reached"
-              : cardMode === 0
-              ? "Stake"
-              : "Unstake"
+                parseFloat(maxStake)
+                ? "Maximum Stake Reached"
+                : cardMode === 0
+                  ? "Stake"
+                  : "Unstake"
           }
           className="bg-black font-medium text-white mt-6 rounded-full"
           disabledClassname="bg-black/25 font-medium text-white rounded-full w-full mt-6"
@@ -290,7 +290,7 @@ const StakeCard = ({
             isLoading ||
             (cardMode === 0 &&
               parseFloat(validator?.stakeAmount || "0") + getAmount() >
-                parseFloat(maxStake))
+              parseFloat(maxStake))
           }
           onClick={() => {
             if (!wallet) return;

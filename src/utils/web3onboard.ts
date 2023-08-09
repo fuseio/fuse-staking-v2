@@ -28,11 +28,14 @@ const transactionPreview = transactionPreviewModule({
     requireTransactionApproval: true
 })
 
-const walletConnect = walletConnectModule({
-    bridge: 'https://walletconnect.fuse.io',
-    version: 1,
-    connectFirstChainId: true,
-})
+const wcV2InitOptions = {
+    projectId: import.meta.env.VITE_WALLET_CONNECT_PUBLIC_KET as string,
+    requiredChains: [122],
+    dappUrl: 'https://staking.fuse.io'
+}
+
+const walletConnect = walletConnectModule(wcV2InitOptions)
+
 const trezor = trezorModule({
     email: 'hello@fuse.io',
     appUrl: 'https://staking.fuse.io'

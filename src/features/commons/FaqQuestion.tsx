@@ -9,21 +9,21 @@ type FaqQuestionProps = {
   className?: string;
 };
 
-const faq = {
-  closed: {
-    scale: 0,
-    transition: {
-      delay: 0.15,
-    },
-  },
-  open: {
-    scale: 1,
-    transition: {
-      type: "spring",
-      duration: 0.4,
-    },
-  },
-};
+// const faq = {
+//   closed: {
+//     scale: 0,
+//     transition: {
+//       delay: 0.15,
+//     },
+//   },
+//   open: {
+//     scale: 1,
+//     transition: {
+//       type: "spring",
+//       duration: 0.4,
+//     },
+//   },
+// };
 
 const FaqQuestion = ({
   question,
