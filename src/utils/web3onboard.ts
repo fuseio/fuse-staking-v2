@@ -1,6 +1,5 @@
 import { init } from '@web3-onboard/react'
-import fuseLogo from '../assets/fuselogo.svg'
-import whiteFuseLogo from '../assets/fuse-staking-logo-white.svg'
+import fuseConsoleLogo from '../assets/fuse-console-logo.svg'
 import fuseIcon from '../assets/fuse.png'
 import fuseToken from '../assets/tokenLogo'
 import coinbaseWalletModule from '@web3-onboard/coinbase'
@@ -10,8 +9,7 @@ import trezorModule from '@web3-onboard/trezor'
 import walletConnectModule from '@web3-onboard/walletconnect'
 import transactionPreviewModule from '@web3-onboard/transaction-preview'
 import injectedModule from '@web3-onboard/injected-wallets'
-
-
+import { ThemingMap } from '@web3-onboard/core/dist/types'
 
 // const web3auth = web3authModule({
 //     clientId:
@@ -58,13 +56,19 @@ const wallets = [
     injectedModule(),
     coinbaseWalletSdk,
     walletConnect,
-    torus,
     ledger,
     trezor,
+    torus
 ]
 
+const customTheme: ThemingMap = {
+    '--w3o-background-color': 'rgba(255, 255, 255, 1)',
+    '--w3o-foreground-color': 'linear-gradient(180deg, #E0FFDD 0%, rgba(242, 242, 242, 0) 100%)',
+    '--w3o-border-radius': '8px'
+}
+
 export const web3Onboard = init({
-    theme: 'dark',
+    theme: customTheme,
     transactionPreview,
     apiKey: import.meta.env.VITE_BLOCKNATIVE_API_KEY as string,
     wallets,
@@ -72,7 +76,7 @@ export const web3Onboard = init({
     appMetadata: {
         name: "Fuse Staking",
         icon: fuseIcon,
-        logo: whiteFuseLogo,
+        logo: fuseConsoleLogo,
         description: "The Fuse Staking Dapp enables users to participate in the Fuse network's consensus by staking FUSE tokens.",
     },
     accountCenter: {

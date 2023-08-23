@@ -13,8 +13,7 @@
 } */
 
 
-
-#wrapper-el{
+#wrapper-el {
   height: 80px;
   position: absolute;
   display: flex;
@@ -22,33 +21,50 @@
   align-items: center;
   width: 100%;
   justify-content: center;
-  }
-  #container-el{
+}
+
+#container-el {
   position: relative;
   display: flex;
   max-width: 1280px;
-  width:90%;
+  width: 90%;
   height: 100%;
   justify-content: flex-end;
   padding-top: 10px;
-  }
-  #onboard-container{
-    position: fixed;
-    width: 315.77px;
-    z-index: 300;
-    /* contain: layout; */
-  }
-  
-  @media (max-width: 767px) {
-    #container-el {
-        display: none;
-    }
+}
 
+#onboard-container {
+  position: fixed;
+  width: 315.77px;
+  z-index: 300;
+  /* contain: layout; */
+}
+
+@media (max-width: 767px) {
+  #container-el {
+    display: none;
   }
 
-    :root{
-      --w3o-background-color:#000000 !important;   
-      --account-center-z-index:300;
-      --account-center-position-top: -0.7rem;
-    }
-    
+}
+
+:root {
+  --primary-text-color: rgba(0, 0, 0, 1);
+
+  /* CUSTOMIZE ACCOUNT CENTER*/
+  --account-center-z-index: 300;
+  --account-center-position-top: -0.7rem;
+
+  /* CUSTOMIZE SECTIONS OF THE CONNECT MODAL */
+  --onboard-connect-sidebar-color: var(--primary-text-color);
+  --onboard-connect-sidebar-progress-background: rgba(217, 217, 217, 1);
+  --onboard-connect-sidebar-progress-color: var(--primary-text-color);
+  --onboard-connect-header-color: var(--primary-text-color);
+  --onboard-link-color: var(--primary-text-color);
+  --onboard-wallet-button-background: rgba(242, 242, 242, 1);
+  --onboard-wallet-button-background-hover: rgba(220, 220, 220, 1);
+  --onboard-wallet-button-color: var(--primary-text-color);
+  --onboard-wallet-button-border-radius: 4px;
+
+  /* FONTS */
+  --onboard-font-family-normal: 'Mona-Sans';
+}
