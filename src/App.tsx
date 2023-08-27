@@ -7,6 +7,7 @@ import Footer from "./features/commons/Footer";
 import ChainModal from "./features/commons/ChainModal";
 import socialIcon from "./assets/socialIcon";
 import info from "./assets/info";
+import poweredByBlocknative from "./assets/poweredByBlocknative";
 
 const onboardStyle = document.createElement('style');
 const onboardActionStyle = document.createElement('style');
@@ -41,7 +42,7 @@ onboardStyle.textContent = `
   }
 
   .modal .heading-container h3 {
-    font-size: 14px;
+    font-size: 16px;
     margin: 0;
   }
 
@@ -61,6 +62,7 @@ onboardStyle.textContent = `
   }
 
   .modal .no-link {
+    display: none;
     font-size: 0.75rem;
     font-weight: 500;
     padding: 0;
@@ -163,9 +165,11 @@ const App = () => {
     setTimeout(() => {
       const torusIcon = modalOuterSocialContainer?.querySelector(".icon")!
       const infoIcon = onboardShadowRootSelector?.querySelector(".info-icon")!
+      const poweredByBlocknativeIcon = onboardShadowRootSelector?.querySelector(".sidebar > div:nth-child(3)")!
 
       torusIcon.innerHTML = socialIcon;
       infoIcon.innerHTML = info;
+      poweredByBlocknativeIcon.innerHTML = poweredByBlocknative;
     }, 200)
   }
 

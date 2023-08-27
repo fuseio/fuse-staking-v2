@@ -54,8 +54,8 @@ const fuse = {
 const chains = [fuse]
 const wallets = [
     injectedModule(),
-    coinbaseWalletSdk,
     walletConnect,
+    coinbaseWalletSdk,
     ledger,
     trezor,
     torus
