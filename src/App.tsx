@@ -9,6 +9,7 @@ import socialIcon from "./assets/socialIcon";
 import info from "./assets/info";
 
 const onboardStyle = document.createElement('style');
+const onboardActionStyle = document.createElement('style');
 
 onboardStyle.textContent = `
   .modal .border-custom {
@@ -97,9 +98,15 @@ onboardStyle.textContent = `
   }
 `;
 
+onboardActionStyle.textContent = `
+  .modal .button-neutral-solid.action-required-btn {
+    color: white;
+  }
+`
+
 const App = () => {
-  const insertStyle = (onboardShadowRootSelector: ShadowRoot) => {
-    onboardShadowRootSelector.appendChild(onboardStyle);
+  const insertStyle = (onboardShadowRootSelector: ShadowRoot, style: HTMLStyleElement) => {
+    onboardShadowRootSelector.appendChild(style);
   }
 
   const createHeading = (modalWalletsContainer: Element, text: string) => {
@@ -164,20 +171,26 @@ const App = () => {
     const callback = (mutationList: MutationRecord[]) => {
       for (const mutation of mutationList) {
         const addedNodesClassList = (mutation?.addedNodes[0] as HTMLElement)?.classList
-        let isModalContainer;
         const walletsContainer = onboardShadowRootSelector.querySelector(".wallets-container")!
+        let isModalContainer;
+        let isActionRequiredBtn;
 
         if (addedNodesClassList && addedNodesClassList.length) {
           isModalContainer = addedNodesClassList.contains("wallets-container")
+          isActionRequiredBtn = addedNodesClassList.contains("action-required-btn")
         }
 
         if (isModalContainer) {
-          insertStyle(onboardShadowRootSelector);
+          insertStyle(onboardShadowRootSelector, onboardStyle);
           createHeading(walletsContainer, "Connect with");
           const torusContainer = selectTorus(onboardShadowRootSelector);
           updateTorus(torusContainer);
           const modalOuterSocialContainer = copyTorus(onboardShadowRootSelector, torusContainer);
           updateIcons(onboardShadowRootSelector, modalOuterSocialContainer)
+        }
+
+        if(isActionRequiredBtn) {
+          insertStyle(onboardShadowRootSelector, onboardActionStyle);
         }
       }
     };

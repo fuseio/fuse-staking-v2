@@ -64,6 +64,7 @@ const wallets = [
 const customTheme: ThemingMap = {
     '--w3o-background-color': 'rgba(255, 255, 255, 1)',
     '--w3o-foreground-color': 'linear-gradient(180deg, #E0FFDD 0%, rgba(242, 242, 242, 0) 100%)',
+    '--w3o-text-color': 'var(--primary-text-color)',
     '--w3o-border-radius': '8px'
 }
 

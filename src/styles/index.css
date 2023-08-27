@@ -53,6 +53,8 @@
   /* CUSTOMIZE ACCOUNT CENTER*/
   --account-center-z-index: 300;
   --account-center-position-top: -0.7rem;
+  --account-center-maximized-address-color: var(--primary-text-color);
+  --account-center-maximized-network-text-color: var(--primary-text-color);
 
   /* CUSTOMIZE SECTIONS OF THE CONNECT MODAL */
   --onboard-connect-sidebar-color: var(--primary-text-color);
