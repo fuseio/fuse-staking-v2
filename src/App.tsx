@@ -10,6 +10,7 @@ import info from "./assets/info";
 
 const onboardStyle = document.createElement('style');
 const onboardActionStyle = document.createElement('style');
+const onboardAccountCenterStyle = document.createElement('style');
 
 onboardStyle.textContent = `
   .modal .border-custom {
@@ -104,6 +105,12 @@ onboardActionStyle.textContent = `
   }
 `
 
+onboardAccountCenterStyle.textContent = `
+  .container .menu.absolute {
+    border: 1px solid var(--onboard-gray-100, var(--gray-100));
+  }
+`
+
 const App = () => {
   const insertStyle = (onboardShadowRootSelector: ShadowRoot, style: HTMLStyleElement) => {
     onboardShadowRootSelector.appendChild(style);
@@ -166,6 +173,9 @@ const App = () => {
     const onboardSelector = document.querySelector("onboard-v2")!
     const onboardShadowRootSelector = onboardSelector.shadowRoot!
 
+    const onboardAccountCenterSelector = document.querySelector("onboard-account-center")!
+    const onboardAccountCenterShadowRootSelector = onboardAccountCenterSelector.shadowRoot!
+
     const config = { attributes: true, childList: true, subtree: true };
 
     const callback = (mutationList: MutationRecord[]) => {
@@ -195,12 +205,30 @@ const App = () => {
       }
     };
 
-    const observer = new MutationObserver(callback);
+    const accountCenterCallback = (mutationList: MutationRecord[]) => {
+      for (const mutation of mutationList) {
+        const addedNodesClassList = (mutation?.addedNodes[0] as HTMLElement)?.classList
+        let isAccountCenterContainer;
 
+        if (addedNodesClassList && addedNodesClassList.length) {
+          isAccountCenterContainer = addedNodesClassList.contains("container")
+        }
+
+        if (isAccountCenterContainer) {
+          insertStyle(onboardAccountCenterShadowRootSelector, onboardAccountCenterStyle);
+        }
+      }
+    };
+
+    const observer = new MutationObserver(callback);
     observer.observe(onboardShadowRootSelector, config);
+
+    const accountCenterObserver = new MutationObserver(accountCenterCallback);
+    accountCenterObserver.observe(onboardAccountCenterShadowRootSelector, config);
 
     return () => {
       observer.disconnect();
+      accountCenterObserver.disconnect();
     }
   }, [])
 
