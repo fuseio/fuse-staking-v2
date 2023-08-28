@@ -57,7 +57,7 @@
   --account-center-maximized-network-text-color: var(--primary-text-color);
 
   /* CUSTOMIZE SECTIONS OF THE CONNECT MODAL */
-  --onboard-connect-content-height: 500px;
+  --onboard-connect-content-height: 360px;
   --onboard-connect-sidebar-color: var(--primary-text-color);
   --onboard-connect-sidebar-progress-background: rgba(217, 217, 217, 1);
   --onboard-connect-sidebar-progress-color: var(--primary-text-color);
