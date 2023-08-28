@@ -60,6 +60,10 @@ module.exports = {
         "1/10": "10%",
         "9/10": "90%",
       },
+      fontSize: {
+        "xl": "1rem",
+        "5xl": "2.5rem",
+      },
       borderWidth: {
         0.5: "0.5px",
       },

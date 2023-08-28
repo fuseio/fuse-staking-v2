@@ -240,8 +240,8 @@ const Home = () => {
         className="w-8/9 mt-4 md:w-9/10 max-w-7xl"
       />
       <div className="w-8/9 flex flex-col mt-8 md:w-9/10 max-w-7xl">
-        <div className="flex w-full items-start">
-          <div className="flex flex-col w-3/5 md:w-full">
+        <div className="flex w-fit items-start">
+          <div className="flex flex-col w-6/12 md:w-full">
             <span className="font-black text-5xl md:text-4xl">
               Fuse Staking
             </span>
@@ -254,7 +254,7 @@ const Home = () => {
               network.
             </span>
           </div>
-          <div className="w-2/5 flex justify-end md:hidden">
+          <div className="w-7/12 flex justify-end md:hidden">
             <img src={piggybank} alt="piggybank" />
           </div>
         </div>
