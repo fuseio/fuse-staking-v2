@@ -6,15 +6,18 @@ import NavButton from "./NavButton";
 const menuItems = [
   {
     title: "Console",
+    link: "#",
     selected: false
   },
   {
     title: "Staking",
-    selected: false
+    link: "#",
+    selected: true
   },
   {
     title: " Bridge",
-    selected: true
+    link: "https://bridge.fuse.io",
+    selected: false
   },
 ]
 

@@ -43,7 +43,7 @@ const NavMenu = ({ menuItems = [], isOpen = false }: NavMenuProps) => {
           >
             {menuItems.map((item, index) =>
               <motion.li key={index} variants={animateLI}>
-                <a href="#" className={"block p-0 bg-transparent md:py-2 md:pl-3 md:pr-4 " + (item.selected ? "text-black md:text-white pointer-events-none" : "text-gray md:text-gray pointer-events-auto hover:text-text-darker-gray")} aria-current={item.selected ? "page" : "false"}>{item.title}</a>
+                <a href={item.link} className={"block p-0 bg-transparent md:py-2 md:pl-3 md:pr-4 " + (item.selected ? "text-black md:text-white pointer-events-none" : "text-gray md:text-gray pointer-events-auto hover:text-text-darker-gray")} aria-current={item.selected ? "page" : "false"}>{item.title}</a>
               </motion.li>
             )}
           </motion.ul>
