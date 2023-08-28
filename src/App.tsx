@@ -78,7 +78,7 @@ onboardStyle.textContent = `
 
   @media screen and (min-width: 768px) {
     .modal .sidebar {
-      padding: 1.75rem;
+      padding: 1rem 1.75rem 1.75rem 1.75rem;
       align-items: flex-start;
     }
   }
@@ -97,6 +97,11 @@ onboardStyle.textContent = `
     .modal .wallet-button-container-inner {
       gap: 0.5rem;
       width: max-content;
+      padding: 0 calc(1.125rem - 8.33px);
+    }
+
+    .modal .wallets-container {
+      padding: 1rem 2rem;
     }
   }
 `;
