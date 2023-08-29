@@ -242,9 +242,9 @@ const Home = () => {
       <div className="w-8/9 flex flex-col mt-8 md:w-9/10 max-w-7xl">
         <div className="flex w-fit items-start">
           <div className="flex flex-col w-6/12 md:w-full">
-            <span className="font-black text-5xl md:text-4xl">
-              Fuse Staking
-            </span>
+            <h1 className="font-black text-5xl md:text-4xl">
+              Staking
+            </h1>
             <span className="text-xl font-normal mt-6 text-text-dark-gray md:text-base">
               The Fuse Staking Dapp enables users to participate in the Fuse
               network's consensus by staking FUSE tokens. Through a
