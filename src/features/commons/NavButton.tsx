@@ -8,7 +8,7 @@ type NavButtonProps = {
 
 const NavButton = ({ isOpen, setOpen }: NavButtonProps) => {
   return (
-    <div className="flex order-2">
+    <div className="flex order-2 min-w-[150px] md:min-w-none">
       <ConnectWallet />
       <button
         type="button"
