@@ -234,18 +234,13 @@ const Home = () => {
 
   return (
     <div className="w-full bg-light-gray flex flex-col items-center">
-      <Breadcrumb
-        links={[]}
-        states={[]}
-        className="w-8/9 mt-4 md:w-9/10 max-w-7xl"
-      />
-      <div className="w-8/9 flex flex-col mt-8 md:w-9/10 max-w-7xl">
+      <div className="w-8/9 flex flex-col mt-14 md:w-9/10 max-w-7xl">
         <div className="flex w-fit items-start">
           <div className="flex flex-col w-6/12 md:w-full">
-            <h1 className="font-black text-5xl md:text-4xl">
+            <h1 className="font-black text-5xl leading-none md:text-4xl">
               Staking
             </h1>
-            <span className="text-xl font-normal mt-6 text-text-dark-gray md:text-base">
+            <span className="text-xl font-normal mt-4 text-text-dark-gray md:text-base">
               The Fuse Staking Dapp enables users to participate in the Fuse
               network's consensus by staking FUSE tokens. Through a
               user-friendly interface, validators and delegators can manage
