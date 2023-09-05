@@ -127,12 +127,12 @@ const StakeCard = ({
   const validatorSlice = useAppSelector(selectValidatorSlice);
   return (
     <div className="w-full bg-white rounded-xl p-4 flex flex-col">
-      <div className="flex">
+      <div className="flex w-full bg-modal-bg rounded-md p-[2px]">
         <p
           className={
             cardMode === 0
-              ? "font-bold cursor-pointer"
-              : "font-bold text-stake-inactive cursor-pointer"
+              ? "text-primary font-semibold py-2 rounded-md cursor-pointer w-1/2 bg-white text-center text-sm"
+              : "text-primary font-medium py-2 cursor-pointer w-1/2 text-center text-sm"
           }
           onClick={() => {
             setMode(0);
@@ -144,8 +144,8 @@ const StakeCard = ({
         <p
           className={
             cardMode === 1
-              ? "font-bold ms-5 cursor-pointer"
-              : "font-bold text-stake-inactive ms-5 cursor-pointer"
+              ? "text-primary font-semibold py-2 rounded-md cursor-pointer w-1/2 bg-white text-center text-sm"
+              : "text-primary font-medium py-2 cursor-pointer w-1/2 text-center text-sm"
           }
           onClick={() => {
             setAmount(null);

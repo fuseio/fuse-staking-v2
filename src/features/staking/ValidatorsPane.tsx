@@ -4,13 +4,15 @@ import { ValidatorType } from "../../store/validatorSlice";
 import Button from "../commons/Button";
 import { eclipseAddress } from "../../utils/helpers";
 import coins from "../../assets/coins.svg";
+import ChevronDown from "../../assets/ChevronDown";
+import ChevronUp from "../../assets/ChevronUp";
 
 const ValidatorsPane = ({
   validators,
   isLoading,
   filters,
   selected,
-  onClick = () => {},
+  onClick = () => { },
 }: {
   validators: ValidatorType[];
   isLoading: boolean;
@@ -106,20 +108,24 @@ const ValidatorsPane = ({
       <div className="flex w-full justify-center mt-6">
         {validatorsToDisplay.length < validators.length ? (
           <Button
-            text="Show More"
-            className="bg-fuse-black text-white px-4 py-2 rounded-full font-medium"
+            text="See more"
+            className="flex items-center gap-1 border border-fuse-black text-black rounded-full font-medium"
             onClick={() => {
               setPage(page + 1);
             }}
-          />
+          >
+            <ChevronDown />
+          </Button>
         ) : validatorsToDisplay.length > 12 ? (
           <Button
-            text="Show Less"
-            className="bg-fuse-black text-white px-4 py-2 rounded-full font-medium"
+            text="See less"
+            className="flex items-center gap-1 border border-fuse-black text-black rounded-full font-medium"
             onClick={() => {
               setPage(1);
             }}
-          />
+          >
+            <ChevronUp />
+          </Button>
         ) : (
           <></>
         )}

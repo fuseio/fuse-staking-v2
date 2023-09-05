@@ -215,11 +215,6 @@ const Stake = () => {
 
   return (
     <div className="w-full bg-light-gray flex flex-col items-center">
-      <Breadcrumb
-        links={[]}
-        states={[validator?.name || "Validator"]}
-        className="w-8/9 mt-4 md:w-9/10 max-w-7xl"
-      />
       <Modal
         isOpen={isOpen}
         onToggle={setIsOpen}
@@ -239,7 +234,7 @@ const Stake = () => {
       <div className="flex w-8/9 flex-col md:w-9/10 max-w-7xl">
         <div className="flex w-full md:flex-col">
           <div className="w-[65%] flex flex-col md:w-full">
-            <div className="flex mt-8 items-start justify-start md:flex-col">
+            <div className="flex mt-14 items-start justify-start md:flex-col">
               <div className="w-2/3 flex justify-start h-20 md:w-full">
                 <div className="h-20">
                   {!validator ? (
@@ -325,7 +320,7 @@ const Stake = () => {
                   "~$ " +
                   new Intl.NumberFormat().format(
                     parseFloat(validator?.stakeAmount as string) *
-                      validators.fuseTokenUSDPrice
+                    validators.fuseTokenUSDPrice
                   )
                 }
                 Footer="Staked Amount"
@@ -428,7 +423,7 @@ const Stake = () => {
               </div>
             )}
           </div>
-          <div className="w-[35%] ps-16 pt-8 md:pb-6 md:w-full md:ps-0">
+          <div className="w-[35%] ps-16 pt-14 md:pt-8 md:pb-6 md:w-full md:ps-0">
             <StickyBox offsetTop={90}>
               <StakeCard
                 validator={validator}

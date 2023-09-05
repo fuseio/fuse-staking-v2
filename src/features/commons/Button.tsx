@@ -8,6 +8,7 @@ type ButtonProps = {
   disabled?: boolean;
   type?: "submit" | "button" | "reset";
   disabledClassname?: string;
+  children?: React.ReactNode;
 };
 
 const Button = ({
@@ -18,6 +19,7 @@ const Button = ({
   disabled = false,
   type = "button",
   disabledClassname = className,
+  children,
 }: ButtonProps) => {
   return (
     <button
@@ -29,6 +31,7 @@ const Button = ({
       type={type}
     >
       {text}
+      {children}
     </button>
   );
 };
