@@ -114,7 +114,11 @@
     "website": "http://innovateunchained.com"
   },
   "0x6948dbC03618F4568048B610e9a303487F6d87c2": {
-    "name": "fuse core",
+    "name": "fuse core I",
+    "image": "logos/fuse core.jpg"
+  },
+  "0x5567cBD72a262de0CF7dBfFE237aA4D669211B82": {
+    "name": "fuse core II",
     "image": "logos/fuse core.jpg"
   },
   "0x6B8Be9e5a7780e3F53445d46e8A77646c59301E3": {
