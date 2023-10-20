@@ -141,7 +141,8 @@
   },
   "0x78EcAa96138B1E491Dc0A9F8A3316d6519e3E689": {
     "name": "GM Capital",
-    "image": "logos/GMCapital.png"
+    "image": "logos/GMCapital.png",
+    "website": "https://gmcap.xyz"
   },
   "0x8101Add741f9eA35eb6801D8b1b398ad4fd87DD8": {
     "name": "Peepl",
@@ -209,7 +210,7 @@
     "image": "logos/MyContainer.jpg",
     "website": " https://www.mycointainer.com"
   },
-  "0xD6fD490784d1FBb54DF0C13494e2CBe5Fbf25F03": {
+  "0xb27fEAAB8e4F4423E0B9c6f743E26e23A5C0c1B3": {
     "name": "Fuseprime",
     "image": "logos/Fuseprime.jpg",
     "website": "https://www.fuseprime.com"
